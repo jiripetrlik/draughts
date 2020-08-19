@@ -12,8 +12,7 @@ class Chessboard extends React.Component {
     createRow(index) {
         let cells = []
         for (var i = 0; i < this.size; i++) {
-            let color = this.rowColor(index, i)
-            cells.push(<td key={i} className={color}><Chessboardsquare row={index} column={i}/></td>)
+            cells.push(<Chessboardsquare key={i} row={index} column={i} pieceType={this.pieceType(index, i)}/>)
         }
 
         return (
@@ -22,25 +21,41 @@ class Chessboard extends React.Component {
             </tr>
         )
     }
+    
+    pieceType(row, column) {
+        for (const i in this.props.pieces.whitepieces) {
+            const coordinates = this.props.pieces.whitepieces[i]
 
-    rowColor(row, column) {
-        let color
-
-        if (row % 2 === 0) {
-            if (column % 2 === 0) {
-                color = "light"
-            } else {
-                color = "dark"
-            }
-        } else {
-            if (column % 2 === 0) {
-                color = "dark"
-            } else {
-                color = "light"
+            if (coordinates[0] === row && coordinates[1] === column) {
+                return "white-piece"
             }
         }
 
-        return color
+        for (const i in this.props.pieces.blackpieces) {
+            const coordinates = this.props.pieces.blackpieces[i]
+
+            if (coordinates[0] === row && coordinates[1] === column) {
+                return "black-piece"
+            }
+        }
+
+        for (const i in this.props.pieces.whitequeens) {
+            const coordinates = this.props.pieces.whitequeens[i]
+
+            if (coordinates[0] === row && coordinates[1] === column) {
+                return "white-queen"
+            }
+        }
+
+        for (const i in this.props.pieces.blackqueens) {
+            const coordinates = this.props.pieces.blackqueens[i]
+
+            if (coordinates[0] === row && coordinates[1] === column) {
+                return "black-queen"
+            }
+        }
+
+        return "none"
     }
 
     render() {

@@ -17,6 +17,7 @@ class Chessboard extends React.Component {
 
         return (
             <tr key={index}>
+                <td>{index + 1}</td>
                 {cells}
             </tr>
         )
@@ -68,14 +69,21 @@ class Chessboard extends React.Component {
 
     render() {
         let rows = []
-        for (var i = this.size - 1; i >= 0; i--) {
+        for (let i = this.size - 1; i >= 0; i--) {
             rows.push(this.createRow(i))
+        }
+
+        let indexes = []
+        indexes.push(<td></td>)
+        for (let i = 65; i < 73; i++) {
+            indexes.push(<td>{String.fromCharCode(i)}</td>)
         }
 
         return (
             <table className="chessboard">
                 <tbody>
                     {rows}
+                    <tr>{indexes}</tr>
                 </tbody>
             </table>
         )

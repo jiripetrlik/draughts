@@ -69,8 +69,14 @@ class Chessboard extends React.Component {
 
     render() {
         let rows = []
-        for (let i = this.size - 1; i >= 0; i--) {
-            rows.push(this.createRow(i))
+        if (this.props.player === "white") {
+            for (let i = this.size - 1; i >= 0; i--) {
+                rows.push(this.createRow(i))
+            }
+        } else {
+            for (let i = 0; i < this.size; i++) {
+                rows.push(this.createRow(i))
+            }
         }
 
         let indexes = []

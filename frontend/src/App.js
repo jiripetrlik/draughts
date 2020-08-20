@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div className="App">
-      <Chessboard size="8" pieces={pieces}/>      
+      <Chessboard size="8" pieces={pieces} player="white"/>      
     </div>
   );
 }

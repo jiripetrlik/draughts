@@ -4,6 +4,7 @@ import whitepiece from "./white-piece.svg"
 import blackpiece from "./black-piece.svg"
 import whitequeen from "./white-queen.svg"
 import blackqueen from "./black-queen.svg"
+import move from "./possible-move.svg"
 
 class Piece extends React.Component {
     render() {
@@ -16,6 +17,8 @@ class Piece extends React.Component {
             image = <img src={whitequeen} alt=""/>
         } else if (this.props.type === "black-queen") {
             image = <img src={blackqueen} alt=""/>
+        } else if (this.props.type === "move") {
+            image = <img src={move} alt=""/>
         }
 
         return image

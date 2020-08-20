@@ -55,6 +55,14 @@ class Chessboard extends React.Component {
             }
         }
 
+        for (const i in this.props.pieces.moves) {
+            const coordinates = this.props.pieces.moves[i]
+
+            if (coordinates[0] === row && coordinates[1] === column) {
+                return "move"
+            }
+        }
+
         return "none"
     }
 

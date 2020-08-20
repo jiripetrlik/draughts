@@ -8,6 +8,7 @@ function App() {
     blackpieces: [[3, 4]],
     whitequeens: [[1, 1]],
     blackqueens: [[6, 6], [4, 4]],
+    moves: [[2, 2], [2, 3]]
   }
 
   return (

@@ -1,8 +1,10 @@
 import React from 'react';
 import './App.css';
 import Game from "./components/Game/Game"
+import NameInput from "./components/NameInput/NameInput"
 
-function App() {
+function App(props) {
+  let status = "game"
   let pieces = {
     whitepieces: [[5, 4], [7, 7]],
     blackpieces: [[3, 4]],
@@ -13,7 +15,13 @@ function App() {
 
   return (
     <div className="App">
-      <Game pieces={pieces}/>
+      {status === "login" &&
+        <NameInput/>
+      }
+
+      {status === "game" &&
+        <Game pieces={pieces}/>
+      }
     </div>
   );
 }

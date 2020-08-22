@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Game from "./components/Game/Game"
 import NameInput from "./components/NameInput/NameInput"
+import NavigationScreen from "./components/NavigationScreen/NavigationScreen"
 
 function App(props) {
   let status = "game"
@@ -17,6 +18,10 @@ function App(props) {
     <div className="App">
       {status === "login" &&
         <NameInput/>
+      }
+
+      {status === "navigation" &&
+        <NavigationScreen/>
       }
 
       {status === "game" &&

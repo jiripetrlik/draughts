@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Chessboard from "./components/Chessboard/Chessboard"
+import Game from "./components/Game/Game"
 
 function App() {
   let pieces = {
@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div className="App">
-      <Chessboard size="8" pieces={pieces} player="white"/>      
+      <Game pieces={pieces}/>
     </div>
   );
 }

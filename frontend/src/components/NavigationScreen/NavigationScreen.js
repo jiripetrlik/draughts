@@ -8,7 +8,14 @@ import ListItem from '@material-ui/core/ListItem'
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-function NavigationScreen() {
+function NavigationScreen(props) {
+    let waitingPlayers = props.players.waiting.map((player) =>
+        <ListItem button key={player.id}>{player.name}</ListItem>
+    )
+    let playingPlayers = props.players.playing.map((players) =>
+        <ListItem button key={players.id}>{players.names[0]} vs {players.names[1]}</ListItem>
+    )
+
     return (
         <div className="navigation-screen">
             <Button>Wait for oponent</Button>
@@ -18,9 +25,7 @@ function NavigationScreen() {
                 </AccordionSummary>
                 <AccordionDetails>
                     <List>
-                        <ListItem button>Player 1</ListItem>
-                        <ListItem button>Player 2</ListItem>
-                        <ListItem button>Player 3</ListItem>
+                        {waitingPlayers}
                     </List>
                 </AccordionDetails>
             </Accordion>
@@ -31,8 +36,7 @@ function NavigationScreen() {
                 </AccordionSummary>
                 <AccordionDetails>
                     <List>
-                        <ListItem button>Player 1 vs Player 2</ListItem>
-                        <ListItem button>Player 3 vs Player 4</ListItem>
+                        {playingPlayers}
                     </List>
                 </AccordionDetails>
             </Accordion>

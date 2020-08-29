@@ -80,9 +80,9 @@ class Chessboard extends React.Component {
         }
 
         let indexes = []
-        indexes.push(<td></td>)
+        indexes.push(<td key="1"></td>)
         for (let i = 65; i < 73; i++) {
-            indexes.push(<td>{String.fromCharCode(i)}</td>)
+            indexes.push(<td key={i}>{String.fromCharCode(i)}</td>)
         }
 
         return (

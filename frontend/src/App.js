@@ -26,6 +26,11 @@ function App(props) {
     blackqueens: [[6, 6], [4, 4]],
     moves: [[2, 2], [2, 3]]
   }
+  let messages = [
+    { name: "Opponent", text: "Hello"},
+    { name: "You", text: "Hi!"},
+    { name: "Opponent", text: "How are you?"},
+  ]
 
   return (
     <div className="App">
@@ -38,7 +43,7 @@ function App(props) {
       }
 
       {status === "game" &&
-        <Game pieces={pieces}/>
+        <Game pieces={pieces} messages={messages}/>
       }
     </div>
   );

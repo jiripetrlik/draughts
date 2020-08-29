@@ -5,7 +5,7 @@ import NameInput from "./components/NameInput/NameInput"
 import NavigationScreen from "./components/NavigationScreen/NavigationScreen"
 
 function App(props) {
-  let status = "game"
+  let status = "login"
   let players = {
     waiting: [
       {id: 1, name: "player1"},

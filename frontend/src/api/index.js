@@ -1,8 +1,8 @@
 var socket = new WebSocket("ws://localhost:8080/ws");
 
-let connect = () => {
+let connect = changeState => {
     socket.onmessage = msg => {
-        console.log(msg.data);
+        changeState(msg);
     };
 }
 

@@ -11,7 +11,12 @@ class NameInput extends React.Component {
 
     keyPress(e) {
         if(e.keyCode === 13){
-            sendMessage(e.target.value)
+            let command = {
+                Name: "login",
+                Parameters: e.target.value
+            }
+
+            sendMessage(JSON.stringify(command))
          }
     }
     

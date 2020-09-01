@@ -9,10 +9,10 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 function NavigationScreen(props) {
-    let waitingPlayers = props.players.waiting.map((player) =>
+    let waitingPlayers = props.players.Waiting.map((player) =>
         <ListItem button key={player.id}>{player.name}</ListItem>
     )
-    let playingPlayers = props.players.playing.map((players) =>
+    let playingPlayers = props.players.Playing.map((players) =>
         <ListItem button key={players.id}>{players.names[0]} vs {players.names[1]}</ListItem>
     )
 

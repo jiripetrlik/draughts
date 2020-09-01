@@ -2,57 +2,16 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
-	"github.com/gorilla/websocket"
+	"github.com/jiripetrlik/draughts-react-go/pkg/draughts"
 )
-
-var upgrader = websocket.Upgrader{
-	ReadBufferSize:  1024,
-	WriteBufferSize: 1024,
-	CheckOrigin:     func(r *http.Request) bool { return true },
-}
-
-func reader(conn *websocket.Conn) {
-	for {
-		messageType, p, err := conn.ReadMessage()
-		if err != nil {
-			log.Println(err)
-			return
-		}
-
-		message := string(p)
-
-		fmt.Println(message)
-		message = message + message
-
-		if err := conn.WriteMessage(messageType, []byte(message)); err != nil {
-			log.Println(err)
-			return
-		}
-		if err := conn.WriteMessage(messageType, []byte(message)); err != nil {
-			log.Println(err)
-			return
-		}
-	}
-}
-
-func serveWs(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(r.Host)
-	ws, err := upgrader.Upgrade(w, r, nil)
-	if err != nil {
-		log.Println(err)
-	}
-
-	reader((ws))
-}
 
 func setupRoutes() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Simple Server")
 	})
-	http.HandleFunc("/ws", serveWs)
+	http.HandleFunc("/ws", draughts.ServeWs)
 }
 
 func main() {

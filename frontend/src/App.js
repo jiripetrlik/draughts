@@ -3,6 +3,7 @@ import './App.css';
 import Game from "./components/Game/Game"
 import NameInput from "./components/NameInput/NameInput"
 import NavigationScreen from "./components/NavigationScreen/NavigationScreen"
+import OponentWaiting from "./components/OponentWaiting/OponentWaiting"
 import { connect } from "./api/index"
 
 class App extends React.Component {
@@ -59,6 +60,10 @@ class App extends React.Component {
 
         {this.state.Status === "navigation" &&
           <NavigationScreen players={this.state.Players} />
+        }
+
+        {this.state.Status === "waiting" &&
+          <OponentWaiting/>
         }
 
         {this.state.Status === "game" &&

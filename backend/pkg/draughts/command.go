@@ -8,7 +8,12 @@ type command struct {
 func executeCommand(c command, s *state) *state {
 	switch c.Name {
 	case "login":
-		return loginCommand(c, s)
+		s = loginCommand(c, s)
+	case "wait":
+		s.Status = "waiting"
+	case "stop-waiting":
+		s.Status = "navigation"
+		s.Players = newPlayers()
 	}
 
 	return s

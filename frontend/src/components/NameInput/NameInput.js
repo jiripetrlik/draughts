@@ -1,13 +1,8 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import { connect, sendMessage } from '../../api/index'
+import { sendMessage } from '../../api/index'
 
 class NameInput extends React.Component {
-
-    constructor(props) {
-        super(props)
-        connect()
-    }
 
     keyPress(e) {
         if(e.keyCode === 13){

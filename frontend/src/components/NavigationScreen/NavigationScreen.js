@@ -7,41 +7,53 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { sendMessage } from '../../api/index'
 
-function NavigationScreen(props) {
-    let waitingPlayers = props.players.Waiting.map((player) =>
-        <ListItem button key={player.id}>{player.name}</ListItem>
-    )
-    let playingPlayers = props.players.Playing.map((players) =>
-        <ListItem button key={players.id}>{players.names[0]} vs {players.names[1]}</ListItem>
-    )
+class NavigationScreen extends React.Component {
+    waitForOponent() {
+        let command = {
+            Name: "wait",
+            Parameters: ""
+        }
 
-    return (
-        <div className="navigation-screen">
-            <Button>Wait for oponent</Button>
-            <Accordion defaultExpanded={true}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>Waiting for oponent</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <List>
-                        {waitingPlayers}
-                    </List>
-                </AccordionDetails>
-            </Accordion>
+        sendMessage(JSON.stringify(command))
+    }
 
-            <Accordion defaultExpanded={true}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography >Now playing</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <List>
-                        {playingPlayers}
-                    </List>
-                </AccordionDetails>
-            </Accordion>
-        </div>
-    )
+    render() {
+        let waitingPlayers = this.props.players.Waiting.map((player) =>
+            <ListItem button key={player.id}>{player.name}</ListItem>
+        )
+        let playingPlayers = this.props.players.Playing.map((players) =>
+            <ListItem button key={players.id}>{players.names[0]} vs {players.names[1]}</ListItem>
+        )
+
+        return (
+            <div className="navigation-screen">
+                <Button onClick={this.waitForOponent}>Wait for oponent</Button>
+                <Accordion defaultExpanded={true}>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography>Waiting for oponent</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <List>
+                            {waitingPlayers}
+                        </List>
+                    </AccordionDetails>
+                </Accordion>
+
+                <Accordion defaultExpanded={true}>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography >Now playing</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <List>
+                            {playingPlayers}
+                        </List>
+                    </AccordionDetails>
+                </Accordion>
+            </div>
+        )
+    }
 }
 
 export default NavigationScreen

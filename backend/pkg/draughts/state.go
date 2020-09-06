@@ -31,13 +31,15 @@ func newPlayers() *players {
 }
 
 type state struct {
-	Status  string
+	ID      uint64
 	Name    string
+	Status  string
 	Players *players
 }
 
 func newState() *state {
-	s := state{Status: "login"}
+	userID := generateUserID()
+	s := state{ID: userID, Status: "login"}
 
 	return &s
 }

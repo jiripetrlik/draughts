@@ -10,6 +10,7 @@ func executeCommand(c command, s *state) *state {
 	case "login":
 		s = loginCommand(c, s)
 	case "wait":
+		waitForOponent()
 		s.Status = "waiting"
 	case "stop-waiting":
 		s.Status = "navigation"

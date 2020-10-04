@@ -9,17 +9,23 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+var Pool *clientsPool = newClientsPool()
+
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
 	CheckOrigin:     func(r *http.Request) bool { return true },
 }
 
-func reader(conn *websocket.Conn) {
-	s := newState()
+func reader(cl *client, conn *websocket.Conn) {
+	defer func() {
+		Pool.Unregister <- cl
+		close(cl.Update)
+	}()
+	Pool.Register <- cl
 
 	for {
-		messageType, messageCommand, err := conn.ReadMessage()
+		_, messageCommand, err := conn.ReadMessage()
 		if err != nil {
 			log.Println(err)
 			return
@@ -31,15 +37,16 @@ func reader(conn *websocket.Conn) {
 			log.Println(err)
 			return
 		}
-		s = executeCommand(c, s)
 
-		message, err := json.Marshal(s)
-		if err != nil {
-			log.Println(err)
-			return
-		}
+		commandClient := newCommandClient(&c, cl)
+		Pool.ExecuteCommand <- commandClient
+	}
+}
 
-		if err := conn.WriteMessage(messageType, []byte(message)); err != nil {
+func writer(cl *client, conn *websocket.Conn) {
+	for {
+		message := <-cl.Update
+		if err := conn.WriteMessage(websocket.TextMessage, message); err != nil {
 			log.Println(err)
 			return
 		}
@@ -53,5 +60,7 @@ func ServeWs(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 
-	reader((ws))
+	cl := newClient()
+	go writer(cl, ws)
+	reader(cl, ws)
 }

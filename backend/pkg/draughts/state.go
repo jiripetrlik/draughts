@@ -1,11 +1,11 @@
 package draughts
 
 type player struct {
-	ID   int
+	ID   uint64
 	Name string
 }
 
-func newPlayer(ID int, name string) *player {
+func newPlayer(ID uint64, name string) *player {
 	return &player{ID: ID, Name: name}
 }
 
@@ -31,15 +31,13 @@ func newPlayers() *players {
 }
 
 type state struct {
-	ID      uint64
-	Name    string
 	Status  string
+	Name    string
 	Players *players
 }
 
 func newState() *state {
-	userID := generateUserID()
-	s := state{ID: userID, Status: "login"}
+	s := state{Status: "login"}
 
 	return &s
 }

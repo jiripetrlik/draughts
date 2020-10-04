@@ -21,7 +21,7 @@ class NavigationScreen extends React.Component {
 
     render() {
         let waitingPlayers = this.props.players.Waiting.map((player) =>
-            <ListItem button key={player.id}>{player.name}</ListItem>
+            <ListItem button key={player.Id}>{player.Name}</ListItem>
         )
         let playingPlayers = this.props.players.Playing.map((players) =>
             <ListItem button key={players.id}>{players.names[0]} vs {players.names[1]}</ListItem>

@@ -5,25 +5,53 @@ type command struct {
 	Parameters string
 }
 
-func executeCommand(c command, s *state) *state {
+func (c *command) Execute(cl *client, pool *clientsPool) []uint64 {
+	notifyClients := []uint64{}
+
 	switch c.Name {
 	case "login":
-		s = loginCommand(c, s)
+		notifyClients = c.loginCommand(cl, pool)
 	case "wait":
-		waitForOponent()
-		s.Status = "waiting"
+		notifyClients = c.waitCommand(cl, pool)
 	case "stop-waiting":
-		s.Status = "navigation"
-		s.Players = newPlayers()
+		notifyClients = c.stopWaitingCommand(cl, pool)
 	}
 
-	return s
+	return notifyClients
 }
 
-func loginCommand(c command, s *state) *state {
-	s.Status = "navigation"
-	s.Name = c.Parameters
-	s.Players = newPlayers()
+func (c *command) loginCommand(cl *client, pool *clientsPool) []uint64 {
+	cl.State.Status = "navigation"
+	cl.State.Name = c.Parameters
+	cl.State.Players = pool.findPlayers(cl.ID)
 
-	return s
+	return []uint64{cl.ID}
+}
+
+func (c *command) waitCommand(cl *client, pool *clientsPool) []uint64 {
+	notifyClients := []uint64{cl.ID}
+
+	cl.State.Status = "waiting"
+	updatePlayers := pool.findPlayersIDsByStatus("navigation")
+	for _, id := range updatePlayers {
+		c := pool.Clients[id]
+		c.State.Players = pool.findPlayers(id)
+		notifyClients = append(notifyClients, id)
+	}
+
+	return notifyClients
+}
+
+func (c *command) stopWaitingCommand(cl *client, pool *clientsPool) []uint64 {
+	notifyClients := []uint64{}
+
+	cl.State.Status = "navigation"
+	updatePlayers := pool.findPlayersIDsByStatus("navigation")
+	for _, id := range updatePlayers {
+		c := pool.Clients[id]
+		c.State.Players = pool.findPlayers(id)
+		notifyClients = append(notifyClients, id)
+	}
+
+	return notifyClients
 }

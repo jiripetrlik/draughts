@@ -11,6 +11,7 @@ func setupRoutes() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Simple Server")
 	})
+	go draughts.Pool.Start()
 	http.HandleFunc("/ws", draughts.ServeWs)
 }
 

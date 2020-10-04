@@ -25,12 +25,12 @@ Filled.args = {
     players: {
       Waiting: [
           {
-              id: 1,
-              name: "User 1"
+              Id: 1,
+              Name: "User 1"
           },
           {
-            id: 2,
-            name: "User 2"
+            Id: 2,
+            Name: "User 2"
         }
       ],
       Playing: [

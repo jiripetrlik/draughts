@@ -9,6 +9,7 @@ type client struct {
 	ID     uint64
 	State  *state
 	Update chan []byte
+	Game   *game
 }
 
 func newClient() *client {
@@ -16,6 +17,7 @@ func newClient() *client {
 		ID:     0,
 		State:  newState(),
 		Update: make(chan []byte),
+		Game:   nil,
 	}
 }
 

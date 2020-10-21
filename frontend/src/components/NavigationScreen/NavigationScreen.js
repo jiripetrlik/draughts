@@ -10,6 +10,12 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { sendMessage } from '../../api/index'
 
 class NavigationScreen extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.waitForOponent = this.waitForOponent.bind(this)
+    }
+
     waitForOponent() {
         let command = {
             Name: "wait",
@@ -19,9 +25,18 @@ class NavigationScreen extends React.Component {
         sendMessage(JSON.stringify(command))
     }
 
+    joinOponent(oponentID) {
+        let command = {
+            Name: "join",
+            Parameters: oponentID.toString()
+        }
+
+        sendMessage(JSON.stringify(command))
+    }
+
     render() {
         let waitingPlayers = this.props.players.Waiting.map((player) =>
-            <ListItem button key={player.Id}>{player.Name}</ListItem>
+            <ListItem button key={player.ID} onClick={this.joinOponent.bind(this, player.ID)}>{player.Name}</ListItem>
         )
         let playingPlayers = this.props.players.Playing.map((players) =>
             <ListItem button key={players.id}>{players.names[0]} vs {players.names[1]}</ListItem>

@@ -31,9 +31,11 @@ func newPlayers() *players {
 }
 
 type state struct {
-	Status  string
-	Name    string
-	Players *players
+	Status   string
+	Name     string
+	Players  *players
+	Pieces   *pieces
+	Messages []message
 }
 
 func newState() *state {

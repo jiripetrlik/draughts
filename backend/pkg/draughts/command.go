@@ -21,6 +21,8 @@ func (c *command) Execute(cl *client, pool *clientsPool) []uint64 {
 		notifyClients = c.stopWaitingCommand(cl, pool)
 	case "join":
 		notifyClients = c.joinCommand(cl, pool)
+	case "message":
+		notifyClients = c.messageCommand(cl, pool)
 	}
 
 	return notifyClients
@@ -69,11 +71,7 @@ func (c *command) joinCommand(cl *client, pool *clientsPool) []uint64 {
 		if oponent, ok := pool.Clients[oponentID]; ok {
 			if oponent.State.Status == "waiting" {
 				g := newGame(cl, oponent)
-
-				cl.Game = g
-				parseGame(cl, g)
-				oponent.Game = g
-				parseGame(oponent, g)
+				g.parseGame()
 
 				notifyClients = append(notifyClients, oponentID)
 			}
@@ -83,8 +81,16 @@ func (c *command) joinCommand(cl *client, pool *clientsPool) []uint64 {
 	return notifyClients
 }
 
-func parseGame(cl *client, g *game) {
-	cl.State.Status = "game"
-	cl.State.Pieces = copyPieces(g.Pieces)
-	cl.State.Messages = g.Messages
+func (c *command) messageCommand(cl *client, pool *clientsPool) []uint64 {
+	notifyClients := []uint64{}
+
+	if cl.State.Status == "game" {
+		message := newMessage(cl.State.Name, c.Parameters)
+		cl.Game.Messages = append(cl.Game.Messages, *message)
+		cl.Game.parseGame()
+
+		notifyClients = append(notifyClients, cl.Game.WhitePlayer.ID, cl.Game.BlackPlayer.ID)
+	}
+
+	return notifyClients
 }

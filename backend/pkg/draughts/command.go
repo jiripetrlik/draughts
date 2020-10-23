@@ -71,6 +71,7 @@ func (c *command) joinCommand(cl *client, pool *clientsPool) []uint64 {
 		if oponent, ok := pool.Clients[oponentID]; ok {
 			if oponent.State.Status == "waiting" {
 				g := newGame(cl, oponent)
+				g.InitializeChessboard()
 				g.parseGame()
 
 				notifyClients = append(notifyClients, oponentID)

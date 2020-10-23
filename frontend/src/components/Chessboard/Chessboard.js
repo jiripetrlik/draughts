@@ -24,42 +24,42 @@ class Chessboard extends React.Component {
     }
     
     pieceType(row, column) {
-        for (const i in this.props.pieces.whitepieces) {
-            const coordinates = this.props.pieces.whitepieces[i]
+        for (const i in this.props.pieces.Whitepieces) {
+            const coordinates = this.props.pieces.Whitepieces[i]
 
-            if (coordinates[0] === row && coordinates[1] === column) {
+            if (coordinates.X === row && coordinates.Y === column) {
                 return "white-piece"
             }
         }
 
-        for (const i in this.props.pieces.blackpieces) {
-            const coordinates = this.props.pieces.blackpieces[i]
+        for (const i in this.props.pieces.Blackpieces) {
+            const coordinates = this.props.pieces.Blackpieces[i]
 
-            if (coordinates[0] === row && coordinates[1] === column) {
+            if (coordinates.X === row && coordinates.Y === column) {
                 return "black-piece"
             }
         }
 
-        for (const i in this.props.pieces.whitequeens) {
-            const coordinates = this.props.pieces.whitequeens[i]
+        for (const i in this.props.pieces.Whitequeens) {
+            const coordinates = this.props.pieces.Whitequeens[i]
 
-            if (coordinates[0] === row && coordinates[1] === column) {
+            if (coordinates.X === row && coordinates.Y === column) {
                 return "white-queen"
             }
         }
 
-        for (const i in this.props.pieces.blackqueens) {
-            const coordinates = this.props.pieces.blackqueens[i]
+        for (const i in this.props.pieces.Blackqueens) {
+            const coordinates = this.props.pieces.Blackqueens[i]
 
-            if (coordinates[0] === row && coordinates[1] === column) {
+            if (coordinates.X === row && coordinates.Y === column) {
                 return "black-queen"
             }
         }
 
-        for (const i in this.props.pieces.moves) {
-            const coordinates = this.props.pieces.moves[i]
+        for (const i in this.props.pieces.Moves) {
+            const coordinates = this.props.pieces.Moves[i]
 
-            if (coordinates[0] === row && coordinates[1] === column) {
+            if (coordinates.X === row && coordinates.Y === column) {
                 return "move"
             }
         }

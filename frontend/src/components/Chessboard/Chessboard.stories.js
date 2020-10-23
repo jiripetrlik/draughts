@@ -13,11 +13,11 @@ Default.args = {
   size: 8,
   player: "white",
   pieces: {
-    whitepieces: [[0, 0], [0, 2]],
-    blackpieces: [[6, 2], [5, 3], [4, 4]],
-    whitequeens: [[4, 6]],
-    blackqueens: [[6, 6], [4, 4]],
-    moves: [[1, 1], [1, 3]]
+    Whitepieces: [{X: 0, Y: 0}, {X: 0, Y: 2}],
+    Blackpieces: [{X: 6, Y: 2}, {X: 5, Y: 3}, {X: 4, Y: 4}],
+    Whitequeens: [{X: 4, Y: 6}],
+    Blackqueens: [{X: 6, Y: 6}, {X: 4, Y: 4}],
+    Moves: [{X: 1, Y: 1}, {X: 1, Y: 3}]
   },
 }
 
@@ -26,11 +26,11 @@ Empty.args = {
   size: 8,
   player: "white",
   pieces: {
-    whitepieces: [],
-    blackpieces: [],
-    whitequeens: [],
-    blackqueens: [],
-    moves: []
+    Whitepieces: [],
+    Blackpieces: [],
+    Whitequeens: [],
+    Blackqueens: [],
+    Moves: []
   },
 }
 
@@ -39,11 +39,11 @@ WhitePlayer.args = {
   size: 8,
   player: "white",
   pieces: {
-    whitepieces: [[0, 0], [0, 2], [0, 4], [0, 6], [1, 1], [1, 3], [1, 5], [1, 7]],
-    blackpieces: [[6, 0], [6, 2], [6, 4], [6, 6], [7, 1], [7, 3], [7, 5], [7, 7]],
-    whitequeens: [],
-    blackqueens: [],
-    moves: []
+    Whitepieces: [{X: 0, Y: 0}, {X: 0, Y: 2}, {X: 0, Y: 4}, {X: 0, Y: 6}, {X: 1, Y: 1}, {X: 1, Y: 3}, {X: 1, Y: 5}, {X: 1, Y: 7}],
+    Blackpieces: [{X: 6, Y: 0}, {X: 6, Y: 2}, {X: 6, Y: 4}, {X: 6, Y: 6}, {X: 7, Y: 1}, {X: 7, Y: 3}, {X: 7, Y: 5}, {X: 7, Y: 7}],
+    Whitequeens: [],
+    Blackqueens: [],
+    Moves: []
   },
 }
 
@@ -52,10 +52,10 @@ BlackPlayer.args = {
   size: 8,
   player: "black",
   pieces: {
-    whitepieces: [[0, 0], [0, 2], [0, 4], [0, 6], [1, 1], [1, 3], [1, 5], [1, 7]],
-    blackpieces: [[6, 0], [6, 2], [6, 4], [6, 6], [7, 1], [7, 3], [7, 5], [7, 7]],
-    whitequeens: [],
-    blackqueens: [],
-    moves: []
+    Whitepieces: [{X: 0, Y: 0}, {X: 0, Y: 2}, {X: 0, Y: 4}, {X: 0, Y: 6}, {X: 1, Y: 1}, {X: 1, Y: 3}, {X: 1, Y: 5}, {X: 1, Y: 7}],
+    Blackpieces: [{X: 6, Y: 0}, {X: 6, Y: 2}, {X: 6, Y: 4}, {X: 6, Y: 6}, {X: 7, Y: 1}, {X: 7, Y: 3}, {X: 7, Y: 5}, {X: 7, Y: 7}],
+    Whitequeens: [],
+    Blackqueens: [],
+    Moves: []
   },
 }

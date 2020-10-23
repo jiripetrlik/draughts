@@ -4,6 +4,8 @@ import (
 	"math/rand"
 )
 
+const ChessboardSize = 8
+
 type pieces struct {
 	Whitepieces []piece
 	Blackpieces []piece
@@ -28,10 +30,10 @@ func copyPieces(p *pieces) *pieces {
 	p2.Whitequeens = make([]piece, len(p.Whitequeens))
 	p2.Blackqueens = make([]piece, len(p.Blackqueens))
 
-	copy(p.Whitepieces, p2.Whitepieces)
-	copy(p.Blackpieces, p2.Blackpieces)
-	copy(p.Whitequeens, p2.Whitequeens)
-	copy(p.Blackqueens, p2.Blackqueens)
+	copy(p2.Whitepieces, p.Whitepieces)
+	copy(p2.Blackpieces, p.Blackpieces)
+	copy(p2.Whitequeens, p.Whitequeens)
+	copy(p2.Blackqueens, p.Blackqueens)
 
 	return p2
 }
@@ -39,6 +41,13 @@ func copyPieces(p *pieces) *pieces {
 type piece struct {
 	X int
 	Y int
+}
+
+func newPiece(X int, Y int) *piece {
+	return &piece{
+		X: X,
+		Y: Y,
+	}
 }
 
 type message struct {
@@ -83,6 +92,19 @@ func newGame(player1 *client, player2 *client) *game {
 	player2.Game = g
 
 	return g
+}
+
+func (g *game) InitializeChessboard() {
+
+	for i := 0; i < ChessboardSize; i++ {
+		if i%2 == 0 {
+			g.Pieces.Whitepieces = append(g.Pieces.Whitepieces, *newPiece(0, i))
+			g.Pieces.Blackpieces = append(g.Pieces.Blackpieces, *newPiece(ChessboardSize-2, i))
+		} else {
+			g.Pieces.Whitepieces = append(g.Pieces.Whitepieces, *newPiece(1, i))
+			g.Pieces.Blackpieces = append(g.Pieces.Blackpieces, *newPiece(ChessboardSize-1, i))
+		}
+	}
 }
 
 func (g *game) parseGame() {

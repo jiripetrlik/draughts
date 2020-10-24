@@ -67,7 +67,7 @@ class App extends React.Component {
         }
 
         {this.state.Status === "game" &&
-          <Game pieces={this.state.Pieces} messages={this.state.Messages} />
+          <Game player={this.state.Color} pieces={this.state.Pieces} messages={this.state.Messages} />
         }
       </div>
     );

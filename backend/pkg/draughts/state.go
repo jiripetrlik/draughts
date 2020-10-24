@@ -34,6 +34,7 @@ type state struct {
 	Status   string
 	Name     string
 	Players  *players
+	Color    string
 	Pieces   *pieces
 	Messages []message
 }

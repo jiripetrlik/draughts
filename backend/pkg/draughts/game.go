@@ -110,12 +110,14 @@ func (g *game) InitializeChessboard() {
 func (g *game) parseGame() {
 	if g.WhitePlayer != nil {
 		g.WhitePlayer.State.Status = "game"
+		g.WhitePlayer.State.Color = "white"
 		g.WhitePlayer.State.Pieces = copyPieces(g.Pieces)
 		g.WhitePlayer.State.Messages = g.Messages
 	}
 
 	if g.BlackPlayer != nil {
 		g.BlackPlayer.State.Status = "game"
+		g.BlackPlayer.State.Color = "black"
 		g.BlackPlayer.State.Pieces = copyPieces(g.Pieces)
 		g.BlackPlayer.State.Messages = g.Messages
 	}

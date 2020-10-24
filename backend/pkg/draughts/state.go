@@ -35,6 +35,7 @@ type state struct {
 	Name     string
 	Players  *players
 	Color    string
+	NextMove string
 	Pieces   *pieces
 	Messages []message
 }

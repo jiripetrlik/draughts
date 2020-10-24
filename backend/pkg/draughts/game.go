@@ -95,6 +95,7 @@ func newGame(player1 *client, player2 *client) *game {
 }
 
 func (g *game) InitializeChessboard() {
+	g.NextMove = "white"
 
 	for i := 0; i < ChessboardSize; i++ {
 		if i%2 == 0 {
@@ -111,6 +112,7 @@ func (g *game) parseGame() {
 	if g.WhitePlayer != nil {
 		g.WhitePlayer.State.Status = "game"
 		g.WhitePlayer.State.Color = "white"
+		g.WhitePlayer.State.NextMove = g.NextMove
 		g.WhitePlayer.State.Pieces = copyPieces(g.Pieces)
 		g.WhitePlayer.State.Messages = g.Messages
 	}
@@ -118,6 +120,7 @@ func (g *game) parseGame() {
 	if g.BlackPlayer != nil {
 		g.BlackPlayer.State.Status = "game"
 		g.BlackPlayer.State.Color = "black"
+		g.BlackPlayer.State.NextMove = g.NextMove
 		g.BlackPlayer.State.Pieces = copyPieces(g.Pieces)
 		g.BlackPlayer.State.Messages = g.Messages
 	}

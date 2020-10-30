@@ -2,6 +2,7 @@ package draughts
 
 import (
 	"strconv"
+	"strings"
 )
 
 type command struct {
@@ -23,6 +24,8 @@ func (c *command) execute(cl *client, pool *clientsPool) []uint64 {
 		notifyClients = c.joinCommand(cl, pool)
 	case "message":
 		notifyClients = c.messageCommand(cl, pool)
+	case "move":
+		notifyClients = c.moveCommand(cl, pool)
 	}
 
 	return notifyClients
@@ -88,6 +91,26 @@ func (c *command) messageCommand(cl *client, pool *clientsPool) []uint64 {
 	if cl.State.Status == "game" {
 		message := newMessage(cl.State.Name, c.Parameters)
 		cl.Game.Messages = append(cl.Game.Messages, *message)
+		cl.Game.parseGame()
+
+		notifyClients = append(notifyClients, cl.Game.WhitePlayer.ID, cl.Game.BlackPlayer.ID)
+	}
+
+	return notifyClients
+}
+
+func (c *command) moveCommand(cl *client, pool *clientsPool) []uint64 {
+	notifyClients := []uint64{}
+
+	if cl.State.Status == "game" {
+		parameters := strings.Split(c.Parameters, ";")
+		pieceType := parameters[0]
+		fromX, _ := strconv.Atoi(parameters[1])
+		fromY, _ := strconv.Atoi(parameters[2])
+		toX, _ := strconv.Atoi(parameters[3])
+		toY, _ := strconv.Atoi(parameters[4])
+
+		cl.Game.doMove(pieceType, fromX, fromY, toX, toY)
 		cl.Game.parseGame()
 
 		notifyClients = append(notifyClients, cl.Game.WhitePlayer.ID, cl.Game.BlackPlayer.ID)

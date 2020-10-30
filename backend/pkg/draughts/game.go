@@ -1,6 +1,7 @@
 package draughts
 
 import (
+	"errors"
 	"math/rand"
 )
 
@@ -48,6 +49,16 @@ func newPiece(X int, Y int) *piece {
 		X: X,
 		Y: Y,
 	}
+}
+
+func pieceIndex(x int, y int, pieces []piece) (int, error) {
+	for i, p := range pieces {
+		if (p.X == x) && (p.Y == y) {
+			return i, nil
+		}
+	}
+
+	return -1, errors.New("Not found")
 }
 
 type message struct {
@@ -106,6 +117,35 @@ func (g *game) initializeChessboard() {
 			g.Pieces.Blackpieces = append(g.Pieces.Blackpieces, *newPiece(chessboardSize-1, i))
 		}
 	}
+}
+
+func (g *game) doMove(pieceType string, fromX int, fromY int, toX int, toY int) bool {
+	if (g.NextMove == "black") && ((pieceType == "white-piece") || (pieceType == "white-queen")) {
+		return false
+	}
+	if (g.NextMove == "white") && ((pieceType == "black-piece") || (pieceType == "black-queen")) {
+		return false
+	}
+
+	if pieceType == "white-piece" {
+		if index, err := pieceIndex(fromX, fromY, g.Pieces.Whitepieces); err != nil {
+			g.Pieces.Whitepieces[index].X = toX
+			g.Pieces.Whitepieces[index].Y = toY
+
+			return true
+		}
+	}
+
+	if pieceType == "black-piece" {
+		if index, err := pieceIndex(fromX, fromY, g.Pieces.Blackpieces); err != nil {
+			g.Pieces.Blackpieces[index].X = toX
+			g.Pieces.Blackpieces[index].Y = toY
+
+			return true
+		}
+	}
+
+	return false
 }
 
 func (g *game) parseGame() {

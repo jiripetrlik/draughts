@@ -4,15 +4,9 @@ import Piece from "../Piece/Piece"
 
 
 class ChessboardSquare extends React.Component {
-    render() {
-        return (
-            <td className={this.color()}>
-                {
-                    this.props.pieceType !== "none" &&
-                    <Piece type={this.props.pieceType}/>
-                }
-            </td>
-        )
+    constructor(props) {
+        super(props)
+        this.handleClick = this.handleClick.bind(this)
     }
 
     color() {
@@ -32,7 +26,26 @@ class ChessboardSquare extends React.Component {
             }
         }
 
+        if (this.props.selected === "yes") {
+            color = color + "selected"
+        }
+
         return color
+    }
+
+    handleClick() {
+        this.props.onHandleClick(this.props.row, this.props.column)
+    }
+    
+    render() {
+        return (
+            <td className={this.color()} onClick={this.handleClick}>
+                {
+                    this.props.pieceType !== "none" &&
+                    <Piece type={this.props.pieceType}/>
+                }
+            </td>
+        )
     }
 }
 

@@ -8,6 +8,14 @@ table.chessboard td.light {
     background-color: beige;
 }
 
+table.chessboard td.lightselected {
+    background-color: white;
+}
+
 table.chessboard td.dark {
     background-color: brown;
+}
+
+table.chessboard td.darkselected {
+    background-color: black;
 }

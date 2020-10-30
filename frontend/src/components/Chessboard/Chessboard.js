@@ -7,12 +7,18 @@ class Chessboard extends React.Component {
     constructor(props) {
         super(props)
         this.size = parseInt(props.size)
+        this.state = {
+            selected: null
+        }
+
+        this.handleSquareClick = this.handleSquareClick.bind(this)
     }
 
     createRow(index) {
         let cells = []
         for (var i = 0; i < this.size; i++) {
-            cells.push(<Chessboardsquare key={i} row={index} column={i} pieceType={this.pieceType(index, i)}/>)
+            cells.push(<Chessboardsquare key={i} row={index} column={i} pieceType={this.pieceType(index, i)}
+                selected={this.isSelected(index, i)} onHandleClick={this.handleSquareClick}/>)
         }
 
         return (
@@ -65,6 +71,50 @@ class Chessboard extends React.Component {
         }
 
         return "none"
+    }
+
+    isSelected(x, y) {
+        console.log("Is selected called for: " + x + " " + y)
+        if (this.state.selected != null) {
+            if ((x === this.state.selected.X) && (y === this.state.selected.Y)) {
+                return "yes"
+            }
+        }
+
+        return "no"
+    }
+
+    containsPiece(x, y) {
+        let p
+        if (this.props.player === "white") {
+            p = this.props.pieces.Whitepieces
+        } else {
+            p = this.props.pieces.Blackpieces
+        }
+
+        for (const i in p) {
+            const coordinates = p[i]
+            if ((coordinates.X === x) && (coordinates.Y === y)) {
+                return true
+            }
+        }
+
+        return false
+    }
+    
+    handleSquareClick(x, y) {
+        if (this.containsPiece(x, y)) {
+            this.setState({
+                selected: {
+                    X: x,
+                    Y: y,
+                }
+            })
+        } else {
+            this.setState({ selected: null})
+        }
+
+        console.log(this.containsPiece(x, y))
     }
 
     render() {

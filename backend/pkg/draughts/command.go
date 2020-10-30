@@ -9,7 +9,7 @@ type command struct {
 	Parameters string
 }
 
-func (c *command) Execute(cl *client, pool *clientsPool) []uint64 {
+func (c *command) execute(cl *client, pool *clientsPool) []uint64 {
 	notifyClients := []uint64{}
 
 	switch c.Name {
@@ -71,7 +71,7 @@ func (c *command) joinCommand(cl *client, pool *clientsPool) []uint64 {
 		if oponent, ok := pool.Clients[oponentID]; ok {
 			if oponent.State.Status == "waiting" {
 				g := newGame(cl, oponent)
-				g.InitializeChessboard()
+				g.initializeChessboard()
 				g.parseGame()
 
 				notifyClients = append(notifyClients, oponentID)

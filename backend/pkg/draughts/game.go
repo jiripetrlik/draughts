@@ -4,7 +4,7 @@ import (
 	"math/rand"
 )
 
-const ChessboardSize = 8
+const chessboardSize = 8
 
 type pieces struct {
 	Whitepieces []piece
@@ -94,16 +94,16 @@ func newGame(player1 *client, player2 *client) *game {
 	return g
 }
 
-func (g *game) InitializeChessboard() {
+func (g *game) initializeChessboard() {
 	g.NextMove = "white"
 
-	for i := 0; i < ChessboardSize; i++ {
+	for i := 0; i < chessboardSize; i++ {
 		if i%2 == 0 {
 			g.Pieces.Whitepieces = append(g.Pieces.Whitepieces, *newPiece(0, i))
-			g.Pieces.Blackpieces = append(g.Pieces.Blackpieces, *newPiece(ChessboardSize-2, i))
+			g.Pieces.Blackpieces = append(g.Pieces.Blackpieces, *newPiece(chessboardSize-2, i))
 		} else {
 			g.Pieces.Whitepieces = append(g.Pieces.Whitepieces, *newPiece(1, i))
-			g.Pieces.Blackpieces = append(g.Pieces.Blackpieces, *newPiece(ChessboardSize-1, i))
+			g.Pieces.Blackpieces = append(g.Pieces.Blackpieces, *newPiece(chessboardSize-1, i))
 		}
 	}
 }

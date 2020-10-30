@@ -78,7 +78,7 @@ func (pool *clientsPool) unregisterClient(c *client) {
 }
 
 func (pool *clientsPool) executeClientCommand(cs *commandClient) {
-	clientIDs := cs.C.Execute(cs.CL, pool)
+	clientIDs := cs.C.execute(cs.CL, pool)
 	pool.notifyClients(clientIDs)
 }
 

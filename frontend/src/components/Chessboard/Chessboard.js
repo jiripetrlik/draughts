@@ -8,7 +8,8 @@ class Chessboard extends React.Component {
         super(props)
         this.size = parseInt(props.size)
         this.state = {
-            selected: null
+            selected: null,
+            possibleMoves: []
         }
 
         this.handleSquareClick = this.handleSquareClick.bind(this)
@@ -62,15 +63,21 @@ class Chessboard extends React.Component {
             }
         }
 
-        for (const i in this.props.pieces.Moves) {
-            const coordinates = this.props.pieces.Moves[i]
+        return "none"
+    }
+
+    pieceTypeOrMove(row, column) {
+        let type = this.pieceType(row, column)
+        
+        for (const i in this.state.possibleMoves) {
+            const coordinates = this.state.possibleMoves[i]
 
             if (coordinates.X === row && coordinates.Y === column) {
                 return "move"
             }
         }
 
-        return "none"
+        return type
     }
 
     isSelected(x, y) {

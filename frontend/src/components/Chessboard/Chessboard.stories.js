@@ -17,7 +17,6 @@ Default.args = {
     Blackpieces: [{X: 6, Y: 2}, {X: 5, Y: 3}, {X: 4, Y: 4}],
     Whitequeens: [{X: 4, Y: 6}],
     Blackqueens: [{X: 6, Y: 6}, {X: 4, Y: 4}],
-    Moves: [{X: 1, Y: 1}, {X: 1, Y: 3}]
   },
 }
 
@@ -30,7 +29,6 @@ Empty.args = {
     Blackpieces: [],
     Whitequeens: [],
     Blackqueens: [],
-    Moves: []
   },
 }
 
@@ -43,7 +41,6 @@ WhitePlayer.args = {
     Blackpieces: [{X: 6, Y: 0}, {X: 6, Y: 2}, {X: 6, Y: 4}, {X: 6, Y: 6}, {X: 7, Y: 1}, {X: 7, Y: 3}, {X: 7, Y: 5}, {X: 7, Y: 7}],
     Whitequeens: [],
     Blackqueens: [],
-    Moves: []
   },
 }
 
@@ -56,6 +53,5 @@ BlackPlayer.args = {
     Blackpieces: [{X: 6, Y: 0}, {X: 6, Y: 2}, {X: 6, Y: 4}, {X: 6, Y: 6}, {X: 7, Y: 1}, {X: 7, Y: 3}, {X: 7, Y: 5}, {X: 7, Y: 7}],
     Whitequeens: [],
     Blackqueens: [],
-    Moves: []
   },
 }

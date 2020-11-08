@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test 1`] = `
+<div
+  className="MuiFormControl-root MuiTextField-root"
+  onKeyDown={[Function]}
+>
+  <label
+    className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
+    data-shrink={false}
+    htmlFor="name-input"
+    id="name-input-label"
+  >
+    Your name
+  </label>
+  <div
+    className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+    onClick={[Function]}
+  >
+    <input
+      aria-invalid={false}
+      autoFocus={false}
+      className="MuiInputBase-input MuiInput-input"
+      disabled={false}
+      id="name-input"
+      onAnimationStart={[Function]}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      required={false}
+      type="text"
+    />
+  </div>
+</div>
+`;

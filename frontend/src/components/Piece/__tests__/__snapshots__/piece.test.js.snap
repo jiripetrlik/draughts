@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test 1`] = `
+<img
+  alt=""
+  src="white-piece.svg"
+/>
+`;

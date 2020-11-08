@@ -39,7 +39,7 @@ class NavigationScreen extends React.Component {
             <ListItem button key={player.ID} onClick={this.joinOponent.bind(this, player.ID)}>{player.Name}</ListItem>
         )
         let playingPlayers = this.props.players.Playing.map((players) =>
-            <ListItem button key={players.id}>{players.names[0]} vs {players.names[1]}</ListItem>
+            <ListItem button key={players.ID}>{players.Names[0]} vs {players.Names[1]}</ListItem>
         )
 
         return (

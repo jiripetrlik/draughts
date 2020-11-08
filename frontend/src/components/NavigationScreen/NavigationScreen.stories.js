@@ -22,30 +22,30 @@ Default.args = {
 
 export const Filled = Template.bind({});
 Filled.args = {
-    players: {
-      Waiting: [
-          {
-              Id: 1,
-              Name: "User 1"
-          },
-          {
-            Id: 2,
-            Name: "User 2"
-        }
-      ],
-      Playing: [
-          {
-              id: 1,
-              names: ["User 3", "User 4"]
-          },
-          {
-            id: 2,
-            names: ["User 5", "User 6"]
-          },
-          {
-            id: 3,
-            names: ["User 7", "User 8"]
-          },
-      ]
-    },
-  };
+  players: {
+    Waiting: [
+      {
+        ID: 1,
+        Name: "User 1"
+      },
+      {
+        ID: 2,
+        Name: "User 2"
+      }
+    ],
+    Playing: [
+      {
+        ID: 1,
+        Names: ["User 3", "User 4"]
+      },
+      {
+        ID: 2,
+        Names: ["User 5", "User 6"]
+      },
+      {
+        ID: 3,
+        Names: ["User 7", "User 8"]
+      },
+    ]
+  },
+};

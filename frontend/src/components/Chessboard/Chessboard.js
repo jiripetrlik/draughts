@@ -1,6 +1,7 @@
 import React from "react"
 import Chessboardsquare from "../ChessboardSquare/ChessboardSquare"
 import "./Chessboard.css"
+import {pieceType} from "../../logic/index"
 
 class Chessboard extends React.Component {
 
@@ -18,7 +19,8 @@ class Chessboard extends React.Component {
     createRow(index) {
         let cells = []
         for (var i = 0; i < this.size; i++) {
-            cells.push(<Chessboardsquare key={i} row={index} column={i} pieceType={this.pieceType(index, i)}
+            cells.push(<Chessboardsquare key={i} row={index} column={i}
+                pieceType={pieceType(index, i, this.props.pieces)}
                 selected={this.isSelected(index, i)} onHandleClick={this.handleSquareClick}/>)
         }
 
@@ -29,45 +31,9 @@ class Chessboard extends React.Component {
             </tr>
         )
     }
-    
-    pieceType(row, column) {
-        for (const i in this.props.pieces.Whitepieces) {
-            const coordinates = this.props.pieces.Whitepieces[i]
-
-            if (coordinates.X === row && coordinates.Y === column) {
-                return "white-piece"
-            }
-        }
-
-        for (const i in this.props.pieces.Blackpieces) {
-            const coordinates = this.props.pieces.Blackpieces[i]
-
-            if (coordinates.X === row && coordinates.Y === column) {
-                return "black-piece"
-            }
-        }
-
-        for (const i in this.props.pieces.Whitequeens) {
-            const coordinates = this.props.pieces.Whitequeens[i]
-
-            if (coordinates.X === row && coordinates.Y === column) {
-                return "white-queen"
-            }
-        }
-
-        for (const i in this.props.pieces.Blackqueens) {
-            const coordinates = this.props.pieces.Blackqueens[i]
-
-            if (coordinates.X === row && coordinates.Y === column) {
-                return "black-queen"
-            }
-        }
-
-        return "none"
-    }
 
     pieceTypeOrMove(row, column) {
-        let type = this.pieceType(row, column)
+        let type = pieceType(row, column, this.props.pieces)
         
         for (const i in this.state.possibleMoves) {
             const coordinates = this.state.possibleMoves[i]

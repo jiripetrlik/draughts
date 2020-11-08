@@ -7,7 +7,7 @@ test('snapshot test', () => {
     const player = "white"
     const pieces = {
         Whitepieces: [{X: 0, Y: 0}, {X: 0, Y: 2}],
-        Blackpieces: [{X: 6, Y: 2}, {X: 5, Y: 3}, {X: 4, Y: 4}],
+        Blackpieces: [{X: 6, Y: 2}, {X: 5, Y: 3}],
         Whitequeens: [{X: 4, Y: 6}],
         Blackqueens: [{X: 6, Y: 6}, {X: 4, Y: 4}],
     }

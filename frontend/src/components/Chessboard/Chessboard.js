@@ -81,7 +81,6 @@ class Chessboard extends React.Component {
     }
 
     isSelected(x, y) {
-        console.log("Is selected called for: " + x + " " + y)
         if (this.state.selected != null) {
             if ((x === this.state.selected.X) && (y === this.state.selected.Y)) {
                 return "yes"

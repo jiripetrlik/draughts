@@ -1,7 +1,7 @@
 import React from "react"
 import Chessboardsquare from "../ChessboardSquare/ChessboardSquare"
 import "./Chessboard.css"
-import {containsPieceWithColor, pieceType} from "../../logic/index"
+import {containsPieceWithColor, pieceType, possibleMoves} from "../../logic/index"
 
 class Chessboard extends React.Component {
 
@@ -20,7 +20,7 @@ class Chessboard extends React.Component {
         let cells = []
         for (var i = 0; i < this.size; i++) {
             cells.push(<Chessboardsquare key={i} row={index} column={i}
-                pieceType={pieceType(index, i, this.props.pieces)}
+                pieceType={this.pieceTypeOrMove(index, i, this.props.pieces)}
                 selected={this.isSelected(index, i)} onHandleClick={this.handleSquareClick}/>)
         }
 
@@ -62,13 +62,12 @@ class Chessboard extends React.Component {
                 selected: {
                     X: x,
                     Y: y,
-                }
+                },
+                possibleMoves: possibleMoves(x, y, this.props.pieces, 8)
             })
         } else {
-            this.setState({ selected: null})
+            this.setState({ selected: null, possibleMoves: []})
         }
-
-        console.log(this.containsPiece(x, y))
     }
 
     render() {

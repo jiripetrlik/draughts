@@ -1,4 +1,16 @@
-function containsPiece(row, column, pieceArray) {
+interface Coordinates {
+    X: number
+    Y: number
+}
+
+interface DraughtsPieces {
+    Whitepieces: Array<Coordinates>
+    Blackpieces: Array<Coordinates>
+    Whitequeens: Array<Coordinates>
+    Blackqueens: Array<Coordinates>
+}
+
+function containsPiece(row: number, column:number, pieceArray: Array<Coordinates>) {
     for (const i in pieceArray) {
         const coordinates = pieceArray[i]
 
@@ -10,7 +22,7 @@ function containsPiece(row, column, pieceArray) {
     return false
 }
 
-function pieceType(row, column, pieces) {
+function pieceType(row: number, column: number, pieces: DraughtsPieces) {
     if (containsPiece(row, column, pieces.Whitepieces)) {
         return "white-piece"
     }

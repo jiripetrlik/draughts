@@ -1,7 +1,7 @@
 import React from "react"
 import Chessboardsquare from "../ChessboardSquare/ChessboardSquare"
 import "./Chessboard.css"
-import {pieceType} from "../../logic/index"
+import {containsPieceWithColor, pieceType} from "../../logic/index"
 
 class Chessboard extends React.Component {
 
@@ -55,27 +55,9 @@ class Chessboard extends React.Component {
 
         return "no"
     }
-
-    containsPiece(x, y) {
-        let p
-        if (this.props.player === "white") {
-            p = this.props.pieces.Whitepieces
-        } else {
-            p = this.props.pieces.Blackpieces
-        }
-
-        for (const i in p) {
-            const coordinates = p[i]
-            if ((coordinates.X === x) && (coordinates.Y === y)) {
-                return true
-            }
-        }
-
-        return false
-    }
     
     handleSquareClick(x, y) {
-        if (this.containsPiece(x, y)) {
+        if (containsPieceWithColor(x, y, this.props.player, this.props.pieces)) {
             this.setState({
                 selected: {
                     X: x,

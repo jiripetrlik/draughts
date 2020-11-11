@@ -3,6 +3,8 @@ interface Coordinates {
     Y: number
 }
 
+type PieceColor = "white" | "black"
+
 interface DraughtsPieces {
     Whitepieces: Array<Coordinates>
     Blackpieces: Array<Coordinates>
@@ -10,7 +12,7 @@ interface DraughtsPieces {
     Blackqueens: Array<Coordinates>
 }
 
-function containsPiece(row: number, column:number, pieceArray: Array<Coordinates>) {
+function arrayContainsPiece(row: number, column:number, pieceArray: Array<Coordinates>) {
     for (const i in pieceArray) {
         const coordinates = pieceArray[i]
 
@@ -23,20 +25,40 @@ function containsPiece(row: number, column:number, pieceArray: Array<Coordinates
 }
 
 function pieceType(row: number, column: number, pieces: DraughtsPieces) {
-    if (containsPiece(row, column, pieces.Whitepieces)) {
+    if (arrayContainsPiece(row, column, pieces.Whitepieces)) {
         return "white-piece"
     }
-    if (containsPiece(row, column, pieces.Blackpieces)) {
+    if (arrayContainsPiece(row, column, pieces.Blackpieces)) {
         return "black-piece"
     }
-    if (containsPiece(row, column, pieces.Whitequeens)) {
+    if (arrayContainsPiece(row, column, pieces.Whitequeens)) {
         return "white-queen"
     }
-    if (containsPiece(row, column, pieces.Blackqueens)) {
+    if (arrayContainsPiece(row, column, pieces.Blackqueens)) {
         return "black-queen"
     }
 
     return "none"
 }
 
-export {pieceType}
+function containsPieceWithColor(row: number, column: number, color: PieceColor, pieces: DraughtsPieces) {
+    if (color === "white") {
+        if (arrayContainsPiece(row, column, pieces.Whitepieces)) {
+            return true
+        }
+        if (arrayContainsPiece(row, column, pieces.Whitequeens)) {
+            return true
+        }
+    } else {
+        if (arrayContainsPiece(row, column, pieces.Blackpieces)) {
+            return true
+        }
+        if (arrayContainsPiece(row, column, pieces.Blackqueens)) {
+            return true
+        }
+    }
+
+    return false
+}
+
+export {containsPieceWithColor, pieceType}

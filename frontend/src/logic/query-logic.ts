@@ -12,6 +12,39 @@ interface DraughtsPieces {
     Blackqueens: Array<Coordinates>
 }
 
+function compareCoordinates(a: Coordinates, b: Coordinates): number {
+    if (a.X < b.X) {
+        return -1
+    } else if (a.X > b.X) {
+        return 1
+    }
+
+    if (a.Y < b.Y) {
+        return -1
+    } else if (a.Y > b.Y) {
+        return 1
+    }
+
+    return 0
+}
+
+function isCoordinatesArrayEqual(a: Array<Coordinates>, b: Array<Coordinates>): boolean {
+    a = a.sort(compareCoordinates)
+    b = b.sort(compareCoordinates)
+    if (a.length === b.length) {
+        const size = a.length
+        for (let i = 0; i < size; i++) {
+            if ((a[i].X !== b[i].X) || (a[i].Y !== b[i].Y)) {
+                return false
+            }
+        }
+
+        return true
+    } else {
+        return false
+    }
+}
+
 function arrayContainsPiece(row: number, column:number, pieceArray: Array<Coordinates>) {
     for (const i in pieceArray) {
         const coordinates = pieceArray[i]
@@ -81,4 +114,4 @@ function isInChessboard(row: number, column: number, size: number): boolean {
 }
 
 export type {Coordinates, PieceColor, DraughtsPieces}
-export {containsPieceWithColor, pieceType, invertColor, isInChessboard}
+export {compareCoordinates, containsPieceWithColor, isCoordinatesArrayEqual, pieceType, invertColor, isInChessboard}

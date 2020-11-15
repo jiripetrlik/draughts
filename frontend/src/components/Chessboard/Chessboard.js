@@ -63,7 +63,7 @@ class Chessboard extends React.Component {
                     X: x,
                     Y: y,
                 },
-                possibleMoves: possibleMoves(x, y, this.props.pieces, 8)
+                possibleMoves: possibleMoves(x, y, this.props.pieces, 8).map(m => m.destination)
             })
         } else {
             this.setState({ selected: null, possibleMoves: []})

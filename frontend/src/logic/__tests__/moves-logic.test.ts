@@ -13,7 +13,8 @@ describe('possibleMoves test', () => {
         }
         const expectedMoves = [{X: 1, Y: 1}]
     
-        expect(isCoordinatesArrayEqual(possibleMoves(0, 0, pieces, chessboardSize), expectedMoves)).toBe(true)
+        const moves = possibleMoves(0, 0, pieces, chessboardSize)
+        expect(isCoordinatesArrayEqual(moves.map(m => m.destination), expectedMoves)).toBe(true)
     });
 
     test('scenario 2', () => {
@@ -25,7 +26,8 @@ describe('possibleMoves test', () => {
         }
         const expectedMoves = [{X: 6, Y: 1}]
     
-        expect(isCoordinatesArrayEqual(possibleMoves(7, 0, pieces, chessboardSize), expectedMoves)).toBe(true)
+        const moves = possibleMoves(7, 0, pieces, chessboardSize)
+        expect(isCoordinatesArrayEqual(moves.map(m => m.destination), expectedMoves)).toBe(true)
     });
 
     test('scenario 3', () => {
@@ -37,7 +39,8 @@ describe('possibleMoves test', () => {
         }
         const expectedMoves = [{X: 1, Y: 1}, {X: 1, Y: 3}]
     
-        expect(isCoordinatesArrayEqual(possibleMoves(0, 2, pieces, chessboardSize), expectedMoves)).toBe(true)
+        const moves = possibleMoves(0, 2, pieces, chessboardSize)
+        expect(isCoordinatesArrayEqual(moves.map(m => m.destination), expectedMoves)).toBe(true)
     });
 
     test('scenario 4', () => {
@@ -49,7 +52,8 @@ describe('possibleMoves test', () => {
         }
         const expectedMoves = [{X: 6, Y: 1}, {X: 6, Y: 3}]
     
-        expect(isCoordinatesArrayEqual(possibleMoves(7, 2, pieces, chessboardSize), expectedMoves)).toBe(true)
+        const moves = possibleMoves(7, 2, pieces, chessboardSize)
+        expect(isCoordinatesArrayEqual(moves.map(m => m.destination), expectedMoves)).toBe(true)
     });
 
     test('scenario 5', () => {
@@ -61,7 +65,8 @@ describe('possibleMoves test', () => {
         }
         const expectedMoves = [{X: 2, Y: 2}, {X: 2, Y: 4}]
     
-        expect(isCoordinatesArrayEqual(possibleMoves(1, 3, pieces, chessboardSize), expectedMoves)).toBe(true)
+        const moves = possibleMoves(1, 3, pieces, chessboardSize)
+        expect(isCoordinatesArrayEqual(moves.map(m => m.destination), expectedMoves)).toBe(true)
     });
 
     test('scenario 6', () => {
@@ -73,7 +78,8 @@ describe('possibleMoves test', () => {
         }
         const expectedMoves = [{X: 6, Y: 1}, {X: 6, Y: 3}]
     
-        expect(isCoordinatesArrayEqual(possibleMoves(7, 2, pieces, chessboardSize), expectedMoves)).toBe(true)
+        const moves = possibleMoves(7, 2, pieces, chessboardSize)
+        expect(isCoordinatesArrayEqual(moves.map(m => m.destination), expectedMoves)).toBe(true)
     });
 
     test('scenario 7', () => {
@@ -85,7 +91,8 @@ describe('possibleMoves test', () => {
         }
         const expectedMoves = [{X: 1, Y: 1}, {X: 2, Y: 4}]
     
-        expect(isCoordinatesArrayEqual(possibleMoves(0, 2, pieces, chessboardSize), expectedMoves)).toBe(true)
+        const moves = possibleMoves(0, 2, pieces, chessboardSize)
+        expect(isCoordinatesArrayEqual(moves.map(m => m.destination), expectedMoves)).toBe(true)
     });
 
     test('scenario 8', () => {
@@ -97,7 +104,8 @@ describe('possibleMoves test', () => {
         }
         const expectedMoves = [{X: 3, Y: 4}, {X: 4, Y: 7}]
     
-        expect(isCoordinatesArrayEqual(possibleMoves(5, 6, pieces, chessboardSize), expectedMoves)).toBe(true)
+        const moves = possibleMoves(5, 6, pieces, chessboardSize)
+        expect(isCoordinatesArrayEqual(moves.map(m => m.destination), expectedMoves)).toBe(true)
     });
 });
 

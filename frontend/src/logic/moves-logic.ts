@@ -111,6 +111,36 @@ function possiblePieceMoves(coordinates: ql.Coordinates, color: ql.PieceColor,
     return moves
 }
 
+function possibleQueenMoves(coordinates: ql.Coordinates, color: ql.PieceColor,
+    pieces: ql.DraughtsPieces, chessboardSize: number): Array<MoveDescription> {
+        let moves: Array<MoveDescription> = []
+
+        for (const vDirection of [-1, 1]) {
+            for (const hDirection of [-1, 1]) {
+                let cont = true
+                let i = 1
+                let jumped:Array<ql.Coordinates> = []
+                
+                while((cont === true) && ql.isInChessboard(coordinates.X + i * vDirection, coordinates.Y + i * hDirection, chessboardSize)) {
+                    if (ql.pieceType(coordinates.X + i * vDirection, coordinates.Y + i * hDirection, pieces) === "none") {
+                        moves.push({
+                            add: addPiece(coordinates.X + i * vDirection, coordinates.Y + i * hDirection, true, color),
+                            remove: removePieces([coordinates].concat(jumped), pieces),
+                            destination: { X: coordinates.X + i * vDirection, Y: coordinates.Y + i * hDirection }
+                        })
+                    } else if (ql.containsPieceWithColor(coordinates.X + i * vDirection, coordinates.Y + i * hDirection, color, pieces)) {
+                        cont = false
+                    } else if (ql.containsPieceWithColor(coordinates.X + i * vDirection, coordinates.Y + i * hDirection, ql.invertColor(color), pieces)) {
+                        jumped.push({X: coordinates.X + i * vDirection, Y: coordinates.Y + i * hDirection})
+                    }
+                    i++
+                }
+            }
+        }
+
+        return moves
+}
+
 function possibleMoves(row: number, column: number, pieces: ql.DraughtsPieces,
     chessboardSize: number): Array<MoveDescription> {
     let moves: Array<MoveDescription> = []
@@ -118,9 +148,12 @@ function possibleMoves(row: number, column: number, pieces: ql.DraughtsPieces,
 
     if (type === "white-piece") {
         moves = possiblePieceMoves({ X: row, Y: column }, "white", pieces, chessboardSize)
-    }
-    else if (type === "black-piece") {
+    } else if (type === "black-piece") {
         moves = possiblePieceMoves({ X: row, Y: column }, "black", pieces, chessboardSize)
+    } else if (type === "white-queen") {
+        moves = possibleQueenMoves({ X: row, Y: column }, "white", pieces, chessboardSize)
+    } else if (type === "black-queen") {
+        moves = possibleQueenMoves({ X: row, Y: column }, "black", pieces, chessboardSize)
     }
 
     return moves

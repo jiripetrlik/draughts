@@ -1,4 +1,4 @@
-import {compareCoordinates, containsPieceWithColor, invertColor, isCoordinatesArrayEqual, isInChessboard, pieceType} from "../query-logic"
+import {compareCoordinates, containsPieceWithColor, invertColor, isCoordinatesArrayEqual, isDraughtsPiecesEqual, isInChessboard, pieceType} from "../query-logic"
 
 const pieces = {
     Whitepieces: [{X: 0, Y: 0}, {X: 0, Y: 2}],
@@ -22,6 +22,43 @@ test('isCoordinatesArrayEqual test', () => {
     expect(isCoordinatesArrayEqual([{X: 1, Y: 5}, {X: 2, Y: 2}], [{X: 2, Y: 2}, {X: 1, Y: 5}])).toBe(true)
     expect(isCoordinatesArrayEqual([{X: 1, Y: 5}, {X: 2, Y: 2}], [{X: 3, Y: 5}, {X: 2, Y: 2}])).toBe(false)
     expect(isCoordinatesArrayEqual([{X: 1, Y: 5}, {X: 2, Y: 2}], [{X: 1, Y: 5}])).toBe(false)
+});
+
+describe('isDraughtsPiecesEqual test', () => {
+    test('compare empty', () => {
+        expect(isDraughtsPiecesEqual(
+            {
+                Whitepieces: [],
+                Blackpieces: [],
+                Whitequeens: [],
+                Blackqueens: []
+            },
+            {
+                Whitepieces: [],
+                Blackpieces: [],
+                Whitequeens: [],
+                Blackqueens: []
+            }
+        )).toEqual(true)
+    });
+    test('positive compare', () => {
+        expect(isDraughtsPiecesEqual(pieces,
+            {
+                Whitepieces: [{X: 0, Y: 0}, {X: 0, Y: 2}],
+                Blackpieces: [{X: 6, Y: 2}, {X: 5, Y: 3}, {X: 4, Y: 4}],
+                Whitequeens: [{X: 4, Y: 6}],
+                Blackqueens: [{X: 6, Y: 6}, {X: 4, Y: 4}],
+            })).toEqual(true)
+    });
+    test('negative compare', () => {
+        expect(isDraughtsPiecesEqual(pieces,
+            {
+                Whitepieces: [{X: 0, Y: 0}, {X: 0, Y: 2}],
+                Blackpieces: [{X: 6, Y: 2}, {X: 5, Y: 3}, {X: 4, Y: 4}],
+                Whitequeens: [{X: 4, Y: 6}, {X: 1, Y: 1}],
+                Blackqueens: [{X: 6, Y: 6}, {X: 4, Y: 4}],
+            })).toEqual(false)
+    });
 });
 
 test('pieceType test', () => {

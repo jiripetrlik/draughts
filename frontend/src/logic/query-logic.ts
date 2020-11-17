@@ -45,6 +45,23 @@ function isCoordinatesArrayEqual(a: Array<Coordinates>, b: Array<Coordinates>): 
     }
 }
 
+function isDraughtsPiecesEqual(a: DraughtsPieces, b: DraughtsPieces): boolean {
+    if (isCoordinatesArrayEqual(a.Whitepieces, b.Whitepieces) === false) {
+        return false
+    }
+    if (isCoordinatesArrayEqual(a.Whitequeens, b.Whitequeens) === false) {
+        return false
+    }
+    if (isCoordinatesArrayEqual(a.Blackpieces, b.Blackpieces) === false) {
+        return false
+    }
+    if (isCoordinatesArrayEqual(a.Blackqueens, b.Blackqueens) === false) {
+        return false
+    }
+
+    return true
+}
+
 function arrayContainsPiece(row: number, column:number, pieceArray: Array<Coordinates>) {
     for (const i in pieceArray) {
         const coordinates = pieceArray[i]
@@ -114,4 +131,4 @@ function isInChessboard(row: number, column: number, size: number): boolean {
 }
 
 export type {Coordinates, PieceColor, DraughtsPieces}
-export {compareCoordinates, containsPieceWithColor, isCoordinatesArrayEqual, pieceType, invertColor, isInChessboard}
+export {compareCoordinates, containsPieceWithColor, isCoordinatesArrayEqual, isDraughtsPiecesEqual, pieceType, invertColor, isInChessboard}

@@ -132,4 +132,30 @@ describe('possibleMoves test', () => {
             Blackqueens: []
         })).toBe(true)
     });
+
+    test('scenario 9', () => {
+        const pieces = {
+            Whitepieces: [{X:0, Y:0},{X:0, Y:2}],
+            Blackpieces: [{X:6, Y:2}, {X: 5,Y: 3}],
+            Whitequeens: [{X:3, Y:3}],
+            Blackqueens: [{X: 6,Y: 6},{X: 4,Y: 4}]
+        }
+        const expectedMoves = [{X: 1, Y: 1}, {X: 2, Y: 2}, {X: 5, Y: 5}, {X: 7, Y: 7},
+            {X: 6, Y: 0}, {X: 5, Y: 1}, {X: 4, Y: 2}, {X: 2, Y: 4}, {X: 1, Y: 5}, {X: 0, Y: 6}]
+        const moves = possibleMoves(3, 3, pieces, chessboardSize)
+        expect(isCoordinatesArrayEqual(moves.map(m => m.destination), expectedMoves)).toBe(true)
+    });
+
+    test('scenario 10', () => {
+        const pieces = {
+            Whitepieces: [{X:0, Y:0},{X:0, Y:2}],
+            Blackpieces: [{X:6, Y:2}, {X: 5,Y: 3}],
+            Whitequeens: [{X:3, Y:3}],
+            Blackqueens: [{X: 6,Y: 6},{X: 4,Y: 4}]
+        }
+        const expectedMoves = [{X: 1, Y: 1}, {X: 2, Y: 2}, {X: 3, Y: 5},
+            {X: 2, Y: 6}, {X: 1, Y: 7}, {X: 5, Y: 5}]
+        const moves = possibleMoves(4, 4, pieces, chessboardSize)
+        expect(isCoordinatesArrayEqual(moves.map(m => m.destination), expectedMoves)).toBe(true)
+    });
 });

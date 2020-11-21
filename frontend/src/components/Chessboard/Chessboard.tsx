@@ -3,9 +3,11 @@ import Chessboardsquare from "../ChessboardSquare/ChessboardSquare"
 import "./Chessboard.css"
 import {containsPieceWithColor, pieceType, possibleMoves} from "../../logic/index"
 
-class Chessboard extends React.Component {
+class Chessboard extends React.Component<Readonly<any>, Readonly<any>> {
 
-    constructor(props) {
+    size: number
+
+    constructor(props: any) {
         super(props)
         this.size = parseInt(props.size)
         this.state = {
@@ -16,11 +18,11 @@ class Chessboard extends React.Component {
         this.handleSquareClick = this.handleSquareClick.bind(this)
     }
 
-    createRow(index) {
+    createRow(index: number) {
         let cells = []
         for (var i = 0; i < this.size; i++) {
             cells.push(<Chessboardsquare key={i} row={index} column={i}
-                pieceType={this.pieceTypeOrMove(index, i, this.props.pieces)}
+                pieceType={this.pieceTypeOrMove(index, i)}
                 selected={this.isSelected(index, i)} onHandleClick={this.handleSquareClick}/>)
         }
 
@@ -32,7 +34,7 @@ class Chessboard extends React.Component {
         )
     }
 
-    pieceTypeOrMove(row, column) {
+    pieceTypeOrMove(row: number, column: number) {
         let type = pieceType(row, column, this.props.pieces)
         
         for (const i in this.state.possibleMoves) {
@@ -46,7 +48,7 @@ class Chessboard extends React.Component {
         return type
     }
 
-    isSelected(x, y) {
+    isSelected(x: number, y: number) {
         if (this.state.selected != null) {
             if ((x === this.state.selected.X) && (y === this.state.selected.Y)) {
                 return "yes"
@@ -56,7 +58,7 @@ class Chessboard extends React.Component {
         return "no"
     }
     
-    handleSquareClick(x, y) {
+    handleSquareClick(x: number, y: number) {
         if (containsPieceWithColor(x, y, this.props.player, this.props.pieces)) {
             this.setState({
                 selected: {

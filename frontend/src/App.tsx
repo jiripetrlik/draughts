@@ -6,9 +6,9 @@ import NavigationScreen from "./components/NavigationScreen/NavigationScreen"
 import OponentWaiting from "./components/OponentWaiting/OponentWaiting"
 import { connect } from "./api/index"
 
-class App extends React.Component {
+class App extends React.Component<Readonly<any>, Readonly<any>> {
 
-  constructor(props) {
+  constructor(props: any) {
     super(props)
 
     this.state = {
@@ -17,7 +17,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    connect((msg) => {
+    connect((msg: any) => {
       let state = JSON.parse(msg.data)
       this.setState(state)
     })

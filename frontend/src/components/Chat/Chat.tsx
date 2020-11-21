@@ -3,9 +3,9 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { sendMessage } from '../../api/index'
 
-class Chat extends React.Component {
+class Chat extends React.Component<Readonly<any>, Readonly<any>> {
 
-    keyPress(e) {
+    keyPress(e: any) {
         if(e.keyCode === 13){
             let command = {
                 Name: "message",
@@ -18,7 +18,7 @@ class Chat extends React.Component {
     }
 
     render() {
-        let messages = this.props.messages.map((message, index) =>
+        let messages = this.props.messages.map((message: any, index: any) =>
             <Typography key={index}>{message.Name}: {message.Text}</Typography>)
 
         return (

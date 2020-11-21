@@ -2,7 +2,7 @@ import React from 'react';
 import Chessboard from "../Chessboard/Chessboard"
 import Chat from "../Chat/Chat"
 
-function Game(props) {
+function Game(props: any) {
     return (
         <div className="Game">
           <Chessboard size="8" pieces={props.pieces} player={props.player}/>

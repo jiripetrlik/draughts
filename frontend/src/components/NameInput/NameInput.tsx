@@ -4,7 +4,7 @@ import { sendMessage } from '../../api/index'
 
 class NameInput extends React.Component {
 
-    keyPress(e) {
+    keyPress(e: any) {
         if(e.keyCode === 13){
             let command = {
                 Name: "login",

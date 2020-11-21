@@ -3,8 +3,8 @@ import "./ChessboardSquare.css"
 import Piece from "../Piece/Piece"
 
 
-class ChessboardSquare extends React.Component {
-    constructor(props) {
+class ChessboardSquare extends React.Component<Readonly<any>, Readonly<any>> {
+    constructor(props: any) {
         super(props)
         this.handleClick = this.handleClick.bind(this)
     }

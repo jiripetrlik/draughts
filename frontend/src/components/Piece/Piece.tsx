@@ -6,7 +6,7 @@ import whitequeen from "./white-queen.svg"
 import blackqueen from "./black-queen.svg"
 import move from "./possible-move.svg"
 
-class Piece extends React.Component {
+class Piece extends React.Component<Readonly<any>, Readonly<any>> {
     render() {
         let image
         if (this.props.type === "white-piece") {

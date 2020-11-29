@@ -1,13 +1,13 @@
 package draughts
 
 import (
+	"encoding/json"
 	"strconv"
-	"strings"
 )
 
 type command struct {
 	Name       string
-	Parameters string
+	Parameters json.RawMessage
 }
 
 func (c *command) execute(cl *client, pool *clientsPool) []uint64 {
@@ -33,7 +33,7 @@ func (c *command) execute(cl *client, pool *clientsPool) []uint64 {
 
 func (c *command) loginCommand(cl *client, pool *clientsPool) []uint64 {
 	cl.State.Status = "navigation"
-	cl.State.Name = c.Parameters
+	json.Unmarshal(c.Parameters, &cl.State.Name)
 	cl.State.Players = pool.findPlayers(cl.ID)
 
 	return []uint64{cl.ID}
@@ -70,7 +70,9 @@ func (c *command) stopWaitingCommand(cl *client, pool *clientsPool) []uint64 {
 func (c *command) joinCommand(cl *client, pool *clientsPool) []uint64 {
 	notifyClients := []uint64{cl.ID}
 
-	if oponentID, err := strconv.ParseUint(c.Parameters, 10, 64); err == nil {
+	var oponentIDString string
+	json.Unmarshal(c.Parameters, &oponentIDString)
+	if oponentID, err := strconv.ParseUint(oponentIDString, 10, 64); err == nil {
 		if oponent, ok := pool.Clients[oponentID]; ok {
 			if oponent.State.Status == "waiting" {
 				g := newGame(cl, oponent)
@@ -88,8 +90,10 @@ func (c *command) joinCommand(cl *client, pool *clientsPool) []uint64 {
 func (c *command) messageCommand(cl *client, pool *clientsPool) []uint64 {
 	notifyClients := []uint64{}
 
+	var messageText string
+	json.Unmarshal(c.Parameters, &messageText)
 	if cl.State.Status == "game" {
-		message := newMessage(cl.State.Name, c.Parameters)
+		message := newMessage(cl.State.Name, messageText)
 		cl.Game.Messages = append(cl.Game.Messages, *message)
 		cl.Game.parseGame()
 
@@ -103,14 +107,10 @@ func (c *command) moveCommand(cl *client, pool *clientsPool) []uint64 {
 	notifyClients := []uint64{}
 
 	if cl.State.Status == "game" {
-		parameters := strings.Split(c.Parameters, ";")
-		pieceType := parameters[0]
-		fromX, _ := strconv.Atoi(parameters[1])
-		fromY, _ := strconv.Atoi(parameters[2])
-		toX, _ := strconv.Atoi(parameters[3])
-		toY, _ := strconv.Atoi(parameters[4])
+		var description moveDescription
+		json.Unmarshal(c.Parameters, &description)
 
-		cl.Game.doMove(pieceType, fromX, fromY, toX, toY)
+		cl.Game.doMove(description)
 		cl.Game.parseGame()
 
 		notifyClients = append(notifyClients, cl.Game.WhitePlayer.ID, cl.Game.BlackPlayer.ID)

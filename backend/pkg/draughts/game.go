@@ -14,6 +14,12 @@ type pieces struct {
 	Blackqueens []piece
 }
 
+type moveDescription struct {
+	Add         *pieces
+	Remove      *pieces
+	Destination *piece
+}
+
 func newPieces() *pieces {
 	return &pieces{
 		Whitepieces: []piece{},
@@ -119,33 +125,22 @@ func (g *game) initializeChessboard() {
 	}
 }
 
-func (g *game) doMove(pieceType string, fromX int, fromY int, toX int, toY int) bool {
-	if (g.NextMove == "black") && ((pieceType == "white-piece") || (pieceType == "white-queen")) {
-		return false
+func (g *game) doMove(description moveDescription) {
+	deletePieces(&g.Pieces.Whitepieces, &description.Remove.Whitepieces)
+	deletePieces(&g.Pieces.Blackpieces, &description.Remove.Blackpieces)
+	deletePieces(&g.Pieces.Whitequeens, &description.Remove.Whitequeens)
+	deletePieces(&g.Pieces.Blackqueens, &description.Remove.Blackqueens)
+
+	g.Pieces.Whitepieces = append(g.Pieces.Whitepieces, description.Add.Whitepieces...)
+	g.Pieces.Blackpieces = append(g.Pieces.Blackpieces, description.Add.Blackpieces...)
+	g.Pieces.Whitequeens = append(g.Pieces.Whitequeens, description.Add.Whitequeens...)
+	g.Pieces.Blackqueens = append(g.Pieces.Blackqueens, description.Add.Blackqueens...)
+
+	if g.NextMove == "white" {
+		g.NextMove = "black"
+	} else {
+		g.NextMove = "white"
 	}
-	if (g.NextMove == "white") && ((pieceType == "black-piece") || (pieceType == "black-queen")) {
-		return false
-	}
-
-	if pieceType == "white-piece" {
-		if index, err := pieceIndex(fromX, fromY, g.Pieces.Whitepieces); err != nil {
-			g.Pieces.Whitepieces[index].X = toX
-			g.Pieces.Whitepieces[index].Y = toY
-
-			return true
-		}
-	}
-
-	if pieceType == "black-piece" {
-		if index, err := pieceIndex(fromX, fromY, g.Pieces.Blackpieces); err != nil {
-			g.Pieces.Blackpieces[index].X = toX
-			g.Pieces.Blackpieces[index].Y = toY
-
-			return true
-		}
-	}
-
-	return false
 }
 
 func (g *game) parseGame() {
@@ -164,4 +159,22 @@ func (g *game) parseGame() {
 		g.BlackPlayer.State.Pieces = copyPieces(g.Pieces)
 		g.BlackPlayer.State.Messages = g.Messages
 	}
+}
+
+func deletePieces(pieces *[]piece, toDelete *[]piece) {
+	newPieces := make([]piece, 0, len(*pieces))
+	for _, p := range *pieces {
+		remove := false
+		for _, d := range *toDelete {
+			if p.X == d.X && p.Y == d.Y {
+				remove = true
+			}
+		}
+
+		if remove == false {
+			newPieces = append(newPieces, p)
+		}
+	}
+
+	*pieces = newPieces
 }

@@ -1,9 +1,15 @@
 import React from "react"
 import Chessboardsquare from "../ChessboardSquare/ChessboardSquare"
 import "./Chessboard.css"
-import {containsPieceWithColor, pieceType, possibleMoves} from "../../logic/index"
+import {Coordinates, containsPieceWithColor, MoveDescription, pieceType, possibleMoves} from "../../logic/index"
+import { sendMessage } from "../../api"
 
-class Chessboard extends React.Component<Readonly<any>, Readonly<any>> {
+interface ChessboardState {
+    selected: Coordinates | null
+    possibleMoves: Array<MoveDescription>
+}
+
+class Chessboard extends React.Component<Readonly<any>, Readonly<ChessboardState>> {
 
     size: number
 
@@ -38,7 +44,7 @@ class Chessboard extends React.Component<Readonly<any>, Readonly<any>> {
         let type = pieceType(row, column, this.props.pieces)
         
         for (const i in this.state.possibleMoves) {
-            const coordinates = this.state.possibleMoves[i]
+            const coordinates = this.state.possibleMoves[i].Destination
 
             if (coordinates.X === row && coordinates.Y === column) {
                 return "move"
@@ -59,16 +65,35 @@ class Chessboard extends React.Component<Readonly<any>, Readonly<any>> {
     }
     
     handleSquareClick(x: number, y: number) {
-        if (containsPieceWithColor(x, y, this.props.player, this.props.pieces)) {
-            this.setState({
-                selected: {
-                    X: x,
-                    Y: y,
-                },
-                possibleMoves: possibleMoves(x, y, this.props.pieces, 8).map(m => m.destination)
-            })
-        } else {
-            this.setState({ selected: null, possibleMoves: []})
+        if (this.props.myTurn) {
+            if (this.state.selected === null) {
+                if (containsPieceWithColor(x, y, this.props.player, this.props.pieces)) {
+                    this.setState({
+                        selected: {
+                            X: x,
+                            Y: y,
+                        },
+                        possibleMoves: possibleMoves(x, y, this.props.pieces, 8)
+                    })
+                } else {
+                    this.setState({ selected: null, possibleMoves: []})
+                }
+            } else {
+                const moveIndex = this.state.possibleMoves.map(m => m.Destination).findIndex(c => c.X === x && c.Y === y)
+                if (moveIndex !== -1) {
+                    let command = {
+                        Name: "move",
+                        Parameters: this.state.possibleMoves[moveIndex]
+                    }
+
+                    sendMessage(JSON.stringify(command))
+                }
+
+                this.setState({
+                    selected: null,
+                    possibleMoves: []
+                })
+            }
         }
     }
 

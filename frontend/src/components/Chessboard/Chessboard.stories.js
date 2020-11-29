@@ -12,6 +12,7 @@ export const Default = Template.bind({});
 Default.args = {
   size: 8,
   player: "white",
+  myTurn: true,
   pieces: {
     Whitepieces: [{X: 0, Y: 0}, {X: 0, Y: 2}],
     Blackpieces: [{X: 6, Y: 2}, {X: 5, Y: 3}],
@@ -24,6 +25,7 @@ export const Empty = Template.bind({});
 Empty.args = {
   size: 8,
   player: "white",
+  myTurn: true,
   pieces: {
     Whitepieces: [],
     Blackpieces: [],
@@ -36,6 +38,7 @@ export const WhitePlayer = Template.bind({});
 WhitePlayer.args = {
   size: 8,
   player: "white",
+  myTurn: true,
   pieces: {
     Whitepieces: [{X: 0, Y: 0}, {X: 0, Y: 2}, {X: 0, Y: 4}, {X: 0, Y: 6}, {X: 1, Y: 1}, {X: 1, Y: 3}, {X: 1, Y: 5}, {X: 1, Y: 7}],
     Blackpieces: [{X: 6, Y: 0}, {X: 6, Y: 2}, {X: 6, Y: 4}, {X: 6, Y: 6}, {X: 7, Y: 1}, {X: 7, Y: 3}, {X: 7, Y: 5}, {X: 7, Y: 7}],
@@ -48,6 +51,7 @@ export const BlackPlayer = Template.bind({});
 BlackPlayer.args = {
   size: 8,
   player: "black",
+  myTurn: true,
   pieces: {
     Whitepieces: [{X: 0, Y: 0}, {X: 0, Y: 2}, {X: 0, Y: 4}, {X: 0, Y: 6}, {X: 1, Y: 1}, {X: 1, Y: 3}, {X: 1, Y: 5}, {X: 1, Y: 7}],
     Blackpieces: [{X: 6, Y: 0}, {X: 6, Y: 2}, {X: 6, Y: 4}, {X: 6, Y: 6}, {X: 7, Y: 1}, {X: 7, Y: 3}, {X: 7, Y: 5}, {X: 7, Y: 7}],

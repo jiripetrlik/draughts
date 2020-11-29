@@ -39,7 +39,7 @@ class App extends React.Component<Readonly<any>, Readonly<any>> {
         }
 
         {this.state.Status === "game" &&
-          <Game player={this.state.Color} pieces={this.state.Pieces} messages={this.state.Messages} />
+          <Game player={this.state.Color} nextMove={this.state.NextMove} pieces={this.state.Pieces} messages={this.state.Messages} />
         }
       </div>
     );

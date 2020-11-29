@@ -2,13 +2,20 @@ import React from 'react';
 import Chessboard from "../Chessboard/Chessboard"
 import Chat from "../Chat/Chat"
 
-function Game(props: any) {
+class Game extends React.Component<Readonly<any>, Readonly<any>> {
+  render() {
+    let myTurn = false
+    if (this.props.nextMove === this.props.player) {
+      myTurn = true
+    }
+
     return (
-        <div className="Game">
-          <Chessboard size="8" pieces={props.pieces} player={props.player}/>
-          <Chat messages={props.messages}/>
-        </div>
-      );
+      <div className="Game">
+        <Chessboard size="8" pieces={this.props.pieces} player={this.props.player} myTurn={myTurn}/>
+        <Chat messages={this.props.messages}/>
+      </div>
+    );
+  }
 }
 
 export default Game

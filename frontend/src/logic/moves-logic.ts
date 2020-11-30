@@ -69,8 +69,9 @@ function possiblePieceMoves(coordinates: ql.Coordinates, color: ql.PieceColor,
 
     if (ql.isInChessboard(coordinates.X + direction, coordinates.Y - 1, chessboardSize)) {
         if (ql.pieceType(coordinates.X + direction, coordinates.Y - 1, pieces) === "none") {
+            let isQueen = ql.isInChessboard(coordinates.X + 2 * direction, coordinates.Y, chessboardSize) ? false : true
             let move: MoveDescription = {
-                Add: addPiece(coordinates.X + direction, coordinates.Y - 1, false, color),
+                Add: addPiece(coordinates.X + direction, coordinates.Y - 1, isQueen, color),
                 Remove: removePieces([{X: coordinates.X, Y: coordinates.Y}], pieces),
                 Destination: {X: coordinates.X + direction, Y: coordinates.Y - 1}
             }
@@ -78,8 +79,9 @@ function possiblePieceMoves(coordinates: ql.Coordinates, color: ql.PieceColor,
         } else if (ql.isInChessboard(coordinates.X + 2 * direction, coordinates.Y - 2, chessboardSize) &&
             ql.containsPieceWithColor(coordinates.X + direction, coordinates.Y - 1, ql.invertColor(color), pieces) &&
             ql.pieceType(coordinates.X + 2 * direction, coordinates.Y - 2, pieces) === "none") {
+                let isQueen = ql.isInChessboard(coordinates.X + 3 * direction, coordinates.Y, chessboardSize) ? false : true
                 let move: MoveDescription = {
-                    Add: addPiece(coordinates.X + 2 * direction, coordinates.Y - 2, false, color),
+                    Add: addPiece(coordinates.X + 2 * direction, coordinates.Y - 2, isQueen, color),
                     Remove: removePieces([{X: coordinates.X, Y: coordinates.Y},
                         {X: coordinates.X + direction, Y: coordinates.Y - 1}], pieces),
                     Destination: {X: coordinates.X + 2 * direction, Y: coordinates.Y - 2}
@@ -89,8 +91,9 @@ function possiblePieceMoves(coordinates: ql.Coordinates, color: ql.PieceColor,
     }
     if (ql.isInChessboard(coordinates.X + direction, coordinates.Y + 1, chessboardSize)) {
         if (ql.pieceType(coordinates.X + direction, coordinates.Y + 1, pieces) === "none") {
+            let isQueen = ql.isInChessboard(coordinates.X + 2 * direction, coordinates.Y, chessboardSize) ? false : true
             let move: MoveDescription = {
-                Add: addPiece(coordinates.X + direction, coordinates.Y + 1, false, color),
+                Add: addPiece(coordinates.X + direction, coordinates.Y + 1, isQueen, color),
                 Remove: removePieces([{X: coordinates.X, Y: coordinates.Y}], pieces),
                 Destination: {X: coordinates.X + direction, Y: coordinates.Y + 1}
             }
@@ -98,8 +101,9 @@ function possiblePieceMoves(coordinates: ql.Coordinates, color: ql.PieceColor,
         } else if (ql.isInChessboard(coordinates.X + 2 * direction, coordinates.Y + 2, chessboardSize) &&
             ql.containsPieceWithColor(coordinates.X + direction, coordinates.Y + 1, ql.invertColor(color), pieces) &&
             ql.pieceType(coordinates.X + 2 * direction, coordinates.Y + 2, pieces) === "none") {
+                let isQueen = ql.isInChessboard(coordinates.X + 3 * direction, coordinates.Y, chessboardSize) ? false : true
                 let move: MoveDescription = {
-                    Add: addPiece(coordinates.X + 2 * direction, coordinates.Y + 2, false, color),
+                    Add: addPiece(coordinates.X + 2 * direction, coordinates.Y + 2, isQueen, color),
                     Remove: removePieces([{X: coordinates.X, Y: coordinates.Y},
                         {X: coordinates.X + direction, Y: coordinates.Y + 1}], pieces),
                         Destination: {X: coordinates.X + 2 * direction, Y: coordinates.Y + 2}

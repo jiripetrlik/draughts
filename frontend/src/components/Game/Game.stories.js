@@ -30,5 +30,7 @@ Default.args = {
         Name: "You",
         Text: "One more message"
     }
-]
+  ],
+  player: "white",
+  nextMove: "white"
 }

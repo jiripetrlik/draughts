@@ -19,16 +19,16 @@ Default.args = {
   },
   messages: [
     {
-        name: "You",
-        text: "Message 1"
+        Name: "You",
+        Text: "Message 1"
     },
     {
-        name: "Oponent",
-        text: "Longer message"
+        Name: "Oponent",
+        Text: "Longer message"
     },
     {
-        name: "You",
-        text: "One more message"
+        Name: "You",
+        Text: "One more message"
     }
 ]
 }

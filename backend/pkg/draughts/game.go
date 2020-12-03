@@ -125,6 +125,23 @@ func (g *game) initializeChessboard() {
 	}
 }
 
+func (g *game) checkWinner() {
+	if (len(g.Pieces.Whitepieces)) == 0 && (len(g.Pieces.Whitequeens) == 0) {
+		g.NextMove = "black-won"
+	}
+	if (len(g.Pieces.Blackpieces)) == 0 && (len(g.Pieces.Blackqueens) == 0) {
+		g.NextMove = "white-won"
+	}
+}
+
+func (g *game) changeTurn() {
+	if g.NextMove == "white" {
+		g.NextMove = "black"
+	} else if g.NextMove == "black" {
+		g.NextMove = "white"
+	}
+}
+
 func (g *game) doMove(description moveDescription) {
 	deletePieces(&g.Pieces.Whitepieces, &description.Remove.Whitepieces)
 	deletePieces(&g.Pieces.Blackpieces, &description.Remove.Blackpieces)
@@ -136,11 +153,8 @@ func (g *game) doMove(description moveDescription) {
 	g.Pieces.Whitequeens = append(g.Pieces.Whitequeens, description.Add.Whitequeens...)
 	g.Pieces.Blackqueens = append(g.Pieces.Blackqueens, description.Add.Blackqueens...)
 
-	if g.NextMove == "white" {
-		g.NextMove = "black"
-	} else {
-		g.NextMove = "white"
-	}
+	g.checkWinner()
+	g.changeTurn()
 }
 
 func (g *game) parseGame() {

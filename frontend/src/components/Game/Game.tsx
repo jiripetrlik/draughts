@@ -18,6 +18,8 @@ class Game extends React.Component<Readonly<any>, Readonly<any>> {
       } else {
         info = "You've lost"
       }
+    } else if (this.props.nextMove === "oponent-left") {
+      info = "Your oponent has left"
     } else {
       if (myTurn) {
         info = "Your turn"

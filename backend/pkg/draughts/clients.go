@@ -3,6 +3,7 @@ package draughts
 import (
 	"encoding/json"
 	"log"
+	"strings"
 )
 
 type client struct {
@@ -72,8 +73,31 @@ func (pool *clientsPool) registerClient(c *client) {
 
 func (pool *clientsPool) unregisterClient(c *client) {
 	if _, exists := pool.Clients[c.ID]; exists {
+		notifyClients := []uint64{}
+		if c.Game != nil {
+			if c.Game.WhitePlayer == c {
+				if strings.Contains(c.Game.NextMove, "won") == false {
+					c.Game.NextMove = "oponent-left"
+				}
+				c.Game.WhitePlayer = nil
+				if c.Game.BlackPlayer != nil {
+					notifyClients = append(notifyClients, c.Game.BlackPlayer.ID)
+				}
+			}
+			if c.Game.BlackPlayer == c {
+				if strings.Contains(c.Game.NextMove, "won") == false {
+					c.Game.NextMove = "oponent-left"
+				}
+				c.Game.BlackPlayer = nil
+				if c.Game.WhitePlayer != nil {
+					notifyClients = append(notifyClients, c.Game.WhitePlayer.ID)
+				}
+			}
+			c.Game.parseGame()
+		}
 		delete(pool.Clients, c.ID)
 		c.ID = 0
+		pool.notifyClients(notifyClients)
 	}
 }
 

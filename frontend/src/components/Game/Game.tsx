@@ -2,8 +2,25 @@ import React from 'react';
 import Chessboard from "../Chessboard/Chessboard"
 import Chat from "../Chat/Chat"
 import "./Game.css"
+import Button from '@material-ui/core/Button';
+import { sendMessage } from '../../api';
 
 class Game extends React.Component<Readonly<any>, Readonly<any>> {
+
+  constructor(props: any) {
+    super(props)
+    this.leaveGame = this.leaveGame.bind(this)
+  }
+  
+  leaveGame() {
+    const command = {
+      Name: "leave-game",
+      Parameters: ""
+    }
+
+    sendMessage(JSON.stringify(command))
+  }
+  
   render() {
     let info = ""
     let myTurn = false
@@ -32,6 +49,7 @@ class Game extends React.Component<Readonly<any>, Readonly<any>> {
       <div className="game">
         <Chessboard size="8" pieces={this.props.pieces} player={this.props.player} myTurn={myTurn}/>
         <Chat messages={this.props.messages}/>
+        <Button onClick={this.leaveGame}>Leave Game</Button>
         <div className="game-status">{info}</div>
       </div>
     );

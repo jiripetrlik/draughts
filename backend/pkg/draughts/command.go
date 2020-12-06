@@ -3,6 +3,7 @@ package draughts
 import (
 	"encoding/json"
 	"strconv"
+	"strings"
 )
 
 type command struct {
@@ -26,6 +27,8 @@ func (c *command) execute(cl *client, pool *clientsPool) []uint64 {
 		notifyClients = c.messageCommand(cl, pool)
 	case "move":
 		notifyClients = c.moveCommand(cl, pool)
+	case "leave-game":
+		notifyClients = c.leaveCommand(cl, pool)
 	}
 
 	return notifyClients
@@ -114,6 +117,38 @@ func (c *command) moveCommand(cl *client, pool *clientsPool) []uint64 {
 		cl.Game.parseGame()
 
 		notifyClients = append(notifyClients, cl.Game.WhitePlayer.ID, cl.Game.BlackPlayer.ID)
+	}
+
+	return notifyClients
+}
+
+func (c *command) leaveCommand(cl *client, pool *clientsPool) []uint64 {
+	notifyClients := []uint64{}
+
+	if cl.State.Status == "game" && cl.Game != nil {
+		if cl.Game.WhitePlayer == cl {
+			if strings.Contains(cl.Game.NextMove, "won") == false {
+				cl.Game.NextMove = "oponent-left"
+			}
+			cl.Game.WhitePlayer = nil
+			if cl.Game.BlackPlayer != nil {
+				notifyClients = append(notifyClients, cl.Game.BlackPlayer.ID)
+			}
+		}
+		if cl.Game.BlackPlayer == cl {
+			if strings.Contains(cl.Game.NextMove, "won") == false {
+				cl.Game.NextMove = "oponent-left"
+			}
+			cl.Game.BlackPlayer = nil
+			if cl.Game.WhitePlayer != nil {
+				notifyClients = append(notifyClients, cl.Game.WhitePlayer.ID)
+			}
+		}
+		cl.Game.parseGame()
+
+		cl.State.Status = "navigation"
+		cl.State.Players = pool.findPlayers(cl.ID)
+		notifyClients = append(notifyClients, cl.ID)
 	}
 
 	return notifyClients

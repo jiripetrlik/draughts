@@ -9,8 +9,11 @@ backend/static-site/index.html:
 	mkdir backend/static-site
 	cp -r frontend/build/* backend/static-site
 
-backend/draughts-react-go: backend/static-site/index.html
+backend/pkged.go: backend/static-site/index.html
+	cd backend; pkger
+
+backend/draughts-react-go: backend/static-site/index.html backend/pkged.go
 	cd backend; go build
 
 clean:
-	rm -rf frontend/build backend/draughts-react-go backend/static-site
+	rm -rf frontend/build backend/draughts-react-go backend/static-site backend/pkged.go

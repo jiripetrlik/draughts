@@ -4,16 +4,13 @@ frontend/build/index.html:
 	yarn --cwd frontend
 	yarn --cwd frontend build
 
-backend/static-site/index.html:
-	rm -rf backend/static-site
-	mkdir backend/static-site
-	cp -r frontend/build/* backend/static-site
+backend/static/content/index.html:
+	rm -rf backend/static/content
+	mkdir backend/static/content
+	cp -r frontend/build/* backend/static/content
 
-backend/pkged.go: backend/static-site/index.html
-	cd backend; pkger
-
-backend/draughts-react-go: backend/static-site/index.html backend/pkged.go
+backend/draughts-react-go: backend/static/content/index.html
 	cd backend; go build
 
 clean:
-	rm -rf frontend/build backend/draughts-react-go backend/static-site backend/pkged.go
+	rm -rf frontend/build backend/draughts-react-go backend/static/content

@@ -1,48 +1,34 @@
 package main
 
 import (
-	"io"
+	"embed"
 	"net/http"
-	"os"
-	"strings"
+	"net/url"
 
 	"github.com/jiripetrlik/draughts-react-go/pkg/draughts"
-	"github.com/markbates/pkger"
 )
 
-func serveStatic(w http.ResponseWriter, r *http.Request) {
-	file, err := pkger.Open("/static-site" + r.URL.Path)
-	if err == os.ErrNotExist {
-		http.NotFound(w, r)
-		return
-	} else if err != nil {
-		http.Error(w, "Something bad happened", http.StatusInternalServerError)
-		println(err)
-		return
-	}
-
-	if strings.HasSuffix(r.URL.Path, ".css") {
-		w.Header().Set("Content-Type", "text/css; charset=utf-8")
-	}
-	if strings.HasSuffix(r.URL.Path, ".js") {
-		w.Header().Set("Content-Type", "text/javascript; charset=utf-8")
-	}
-	if strings.HasSuffix(r.URL.Path, ".svg") {
-		w.Header().Set("Content-Type", "image/svg+xml; charset=utf-8")
-	}
-	io.Copy(w, file)
-}
+//go:embed static
+var static embed.FS
 
 func setupRoutes() {
-	http.HandleFunc("/", serveStatic)
+	fs := http.FileServer(http.FS(static))
+	http.Handle("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		r2 := new(http.Request)
+		*r2 = *r
+		r2.URL = new(url.URL)
+		*r2.URL = *r.URL
+		r2.URL.Path = "/static/content" + r.URL.Path
+		r2.URL.RawPath = "/static/content" + r.URL.RawPath
+
+		fs.ServeHTTP(w, r2)
+	}))
 
 	go draughts.Pool.Start()
 	http.HandleFunc("/ws", draughts.ServeWs)
 }
 
 func main() {
-	pkger.Include("/static-site")
-
 	setupRoutes()
 	http.ListenAndServe(":8080", nil)
 }

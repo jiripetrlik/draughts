@@ -24,6 +24,8 @@ make
 make clean
 ```
 
+![Screenshot](docs/screenshot.png)
+
 ## Create Docker images
 
 Project contains a `Dockerfile` in the parent directory which

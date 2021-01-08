@@ -2,6 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { sendMessage } from '../../api/index'
+import './Chat.css'
 
 class Chat extends React.Component<Readonly<any>, Readonly<any>> {
 
@@ -23,7 +24,8 @@ class Chat extends React.Component<Readonly<any>, Readonly<any>> {
 
         return (
             <div id="chat">
-                <div>
+                <Typography variant="h6">Chat</Typography>
+                <div id="chat-messages">
                     {messages}
                 </div>
                 <TextField label="Message" onKeyDown={this.keyPress}/>

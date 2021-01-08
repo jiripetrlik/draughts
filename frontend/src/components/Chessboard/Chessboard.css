@@ -1,4 +1,6 @@
 table.chessboard {
-    float: left;
+    position: relative;
+    top: 10px;
+    left: 10 px;
     border-collapse: collapse;
 }

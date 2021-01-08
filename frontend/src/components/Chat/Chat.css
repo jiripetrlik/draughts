@@ -1,0 +1,12 @@
+#chat {
+    position: absolute;
+    top: 10px;
+    left: 550px;
+    width: 250px;
+    padding: 20px;
+    border: 1px solid;
+}
+
+#chat-messages {
+    text-align: left;
+}

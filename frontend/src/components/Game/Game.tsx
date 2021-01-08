@@ -3,6 +3,7 @@ import Chessboard from "../Chessboard/Chessboard"
 import Chat from "../Chat/Chat"
 import "./Game.css"
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import { sendMessage } from '../../api';
 
 class Game extends React.Component<Readonly<any>, Readonly<any>> {
@@ -47,10 +48,14 @@ class Game extends React.Component<Readonly<any>, Readonly<any>> {
 
     return (
       <div className="game">
-        <Chessboard size="8" pieces={this.props.pieces} player={this.props.player} myTurn={myTurn}/>
-        <Chat messages={this.props.messages}/>
-        <Button onClick={this.leaveGame}>Leave Game</Button>
-        <div className="game-status">{info}</div>
+        <div className="game-top">
+          <Chessboard size="8" pieces={this.props.pieces} player={this.props.player} myTurn={myTurn}/>
+          <Chat messages={this.props.messages}/>
+        </div>
+        <div className="game-bottom">
+          <Typography variant="h6" className="game-status">State: {info}</Typography>
+          <Button variant="contained" color="primary" onClick={this.leaveGame}>Leave Game</Button>
+        </div>
       </div>
     );
   }

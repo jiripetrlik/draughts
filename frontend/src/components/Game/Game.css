@@ -1,3 +1,9 @@
-div.game-status {
-    clear: left;
+div.game {
+    position: absolute;
+}
+
+div.game-bottom {
+    position: absolute;
+    top: 540px;
+    width: 540px;
 }

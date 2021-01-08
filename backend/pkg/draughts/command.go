@@ -97,6 +97,10 @@ func (c *command) messageCommand(cl *client, pool *clientsPool) []uint64 {
 	json.Unmarshal(c.Parameters, &messageText)
 	if cl.State.Status == "game" {
 		message := newMessage(cl.State.Name, messageText)
+
+		if len(cl.Game.Messages) >= 7 {
+			cl.Game.Messages = cl.Game.Messages[1:]
+		}
 		cl.Game.Messages = append(cl.Game.Messages, *message)
 		cl.Game.parseGame()
 

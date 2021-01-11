@@ -6,6 +6,26 @@ set his nickname and wait for or choose the oponent. Frontend of the application
 is implemented in React which connects to a simple backend which is implemented
 in Go programming language.
 
+## Run using published binaries
+
+Download a binary file for your computer architecture and operating system
+from the latest [release page](https://github.com/jiripetrlik/draughts/releases). Run
+the downloaded file. Open the application using a web browser on
+http://localhost:8080.
+
+![Screenshot](docs/screenshot.png)
+
+## Run using published Docker image
+
+Docker image for Draughts is published on Docker hub. It is
+possible to start the application in Docker container using the
+following command:
+
+```
+# Run Draughts in Docker container (Use http://localhost:8080 to connect)
+docker run -d --name draughts-container -p 8080:8080 jiripetrlik/draughts
+```
+
 ## Build
 
 Project can be build using a traditional Makefile in the parent
@@ -23,8 +43,6 @@ make
 # Clean up project
 make clean
 ```
-
-![Screenshot](docs/screenshot.png)
 
 ## Create Docker images
 

@@ -1,5 +1,7 @@
 # Draughts
 
+![Docker build](https://github.com/jiripetrlik/draughts/actions/workflows/docker.yml/badge.svg)
+
 This project provides a simple implementation of game Draughts. It allows
 multiple users to play this game in their browsers over the network. User can
 set his nickname and wait for or choose the oponent. Frontend of the application

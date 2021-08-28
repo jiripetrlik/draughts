@@ -7,7 +7,7 @@ COPY frontend/package.json frontend/tsconfig.json frontend/yarn.lock /frontend/
 RUN yarn --cwd /frontend
 RUN yarn --cwd /frontend build
 
-FROM golang:1.16-rc-alpine AS backend-builder
+FROM golang:1.17-alpine AS backend-builder
 
 COPY backend /backend
 COPY --from=frontend-builder /frontend/build /backend/static/content
